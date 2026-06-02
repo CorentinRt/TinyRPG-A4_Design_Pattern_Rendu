@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "Controls",
     "maps": [
         {
@@ -18,7 +19,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "69eb578d-11bf-46aa-a801-c59a74ef85eb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
