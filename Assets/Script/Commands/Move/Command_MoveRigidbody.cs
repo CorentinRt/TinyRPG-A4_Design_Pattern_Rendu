@@ -4,13 +4,25 @@ public class Command_MoveRigidbody : Command
 {
     public struct MoveRigidbody_Params
     {
-        public Vector3 position;
+        #region Fields
+        private Vector3 _position;
 
-        public Quaternion rotation;
+        private Quaternion _rotation;
 
-        public Vector3 linearVelocity;
+        private Vector3 _linearVelocity;
 
-        public Vector3 angularVelocity;
+        private Vector3 _angularVelocity;
+
+
+        #endregion
+
+        #region Properties
+        public Vector3 Position { get => _position; set => _position = value; }
+        public Quaternion Rotation { get => _rotation; set => _rotation = value; }
+        public Vector3 LinearVelocity { get => _linearVelocity; set => _linearVelocity = value; }
+        public Vector3 AngularVelocity { get => _angularVelocity; set => _angularVelocity = value; }
+
+        #endregion
     }
 
     #region Fields
@@ -22,6 +34,13 @@ public class Command_MoveRigidbody : Command
 
     #endregion
 
+    public Command_MoveRigidbody(Rigidbody rb, MoveRigidbody_Params beforeMoveParams, MoveRigidbody_Params afterMoveParams)
+    {
+        _rb = rb;
+        _beforeMoveParams = beforeMoveParams;
+        _afterMoveParams = afterMoveParams;
+    }
+    
     public override void Do()
     {
         Move(_afterMoveParams);
@@ -40,9 +59,9 @@ public class Command_MoveRigidbody : Command
             return;
         }
 
-        _rb.position = moveParams.position;
-        _rb.rotation = moveParams.rotation;
-        _rb.linearVelocity = moveParams.linearVelocity;
-        _rb.angularVelocity = moveParams.angularVelocity;
+        _rb.position = moveParams.Position;
+        _rb.rotation = moveParams.Rotation;
+        _rb.linearVelocity = moveParams.LinearVelocity;
+        _rb.angularVelocity = moveParams.AngularVelocity;
     }
 }

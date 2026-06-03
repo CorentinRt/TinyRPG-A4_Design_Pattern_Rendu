@@ -12,6 +12,11 @@ public class CharacterMovementsBehaviour : MonoBehaviour
 
     #endregion
 
+    #region Properties
+    public Rigidbody RigidBody => _rb;
+
+    #endregion
+
     public event Action<Vector3> onVelocityChange;
 
 
@@ -21,7 +26,7 @@ public class CharacterMovementsBehaviour : MonoBehaviour
         _currentDir = dir;
     }
 
-    protected void UpdateMovements(bool movementsEnabled, float acceleration, float maxVelocity, float turningBoost, float deceleration = 0.1f)
+    protected virtual void UpdateMovements(bool movementsEnabled, float acceleration, float maxVelocity, float turningBoost, float deceleration = 0.1f)
     {
         float boost = 1f;
 

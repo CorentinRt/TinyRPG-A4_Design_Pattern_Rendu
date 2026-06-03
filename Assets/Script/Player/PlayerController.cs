@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Behaviours")]
     [SerializeField] private PlayerMovementsBehaviour _movements;
     [SerializeField] private PlayerAttackBehaviour _attack;
-    [SerializeField] private PlayerAttackBehaviour _rewind;
+    [SerializeField] private PlayerCommandRewind _rewind;
 
     #endregion
 
@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
 
         // Attack
         _attackInput.action.started += OnReceiveAttackInput;
+
+        // Rewind
+        _rewindInput.action.started += OnReceiveRewindInput;
+        _rewind.onSetEnableRewind += OnReceiveSetEnableRewind;
     }
 
     private void OnDestroy()
@@ -43,6 +47,10 @@ public class PlayerController : MonoBehaviour
 
         // Attack
         _attackInput.action.started -= OnReceiveAttackInput;
+
+        // Rewind
+        _rewindInput.action.started -= OnReceiveRewindInput;
+        _rewind.onSetEnableRewind -= OnReceiveSetEnableRewind;
 
     }
 
@@ -74,9 +82,12 @@ public class PlayerController : MonoBehaviour
     {
         if (_movements != null)
         {
-            Vector2 dir = Vector2.ClampMagnitude(ctx.ReadValue<Vector2>(), 1f);
+            if (CanTriggerMove())
+            {
+                Vector2 dir = Vector2.ClampMagnitude(ctx.ReadValue<Vector2>(), 1f);
 
-            _movements.SetMoveDirection(dir);
+                _movements.SetMoveDirection(dir);
+            }
         }
         else
         {
@@ -84,16 +95,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void OnReceiveAttackInput(InputAction.CallbackContext ctx)
     {
         if(_attack != null)
         {
-            _attack.TriggerNewAttack(_datas.Attacks[0], 0);
+            if (CanTriggerAttack())
+            {
+                _attack.TriggerNewAttack(_datas.Attacks[0], 0);
+            }
         }
         else
         {
             Debug.LogError("Error : Try to attack but no attack behaviour linked to Player Controller ! Attack of player won't work !", this);
         }
+    }
+
+    private void OnReceiveRewindInput(InputAction.CallbackContext ctx)
+    {
+        if (_rewind != null)
+        {
+            _rewind.SetEnableRewind(!_rewind.IsRewindEnabled());
+        }
+        else
+        {
+            Debug.LogError("Error : Try to rewind but no Player rewind behaviour linked to Player Controller ! rewind of player won't work !", this);
+        }
+    }
+
+    private void OnReceiveSetEnableRewind(bool enabled)
+    {
+        _movements.SetMovementsEnable(!enabled);
+    }
+
+    private bool CanTriggerMove()
+    {
+        if (_rewind == null)
+            return true;
+
+        return !_rewind.IsRewindEnabled();
+    }
+
+    private bool CanTriggerAttack()
+    {
+        if (_rewind == null)
+            return true;
+
+        return !_rewind.IsRewindEnabled();
     }
 }

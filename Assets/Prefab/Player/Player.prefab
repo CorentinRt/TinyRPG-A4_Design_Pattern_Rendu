@@ -190,7 +190,7 @@ MonoBehaviour:
     type: 3}
   _movements: {fileID: 2928025331059148393}
   _attack: {fileID: 8624767364342676720}
-  _rewind: {fileID: 8624767364342676720}
+  _rewind: {fileID: 8072416519539382671}
 --- !u!1 &1558698249687060746
 GameObject:
   m_ObjectHideFlags: 0

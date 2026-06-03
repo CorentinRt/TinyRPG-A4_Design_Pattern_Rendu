@@ -26,7 +26,7 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
 
     public void RegisterCommand(Command command)
     {
-        if (command == null)
+        if (command == null || _isEnabled)
             return;
 
         _commands.Add(command);
@@ -51,14 +51,18 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
 
         _isEnabled = enable;
 
-        onSetEnableRewind?.Invoke(_isEnabled);
-
         if (_isEnabled)
         {
             StartRewindCoroutine();
         }
+
+        onSetEnableRewind?.Invoke(_isEnabled);
     }
 
+    public bool IsRewindEnabled()
+    {
+        return _isEnabled;
+    }
 
     private void StartRewindCoroutine()
     {
@@ -78,14 +82,14 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
     {
         while (_isEnabled && _commands.Count > 0)
         {
-            Command command = _commands[0];
+            Command command = _commands[_commands.Count - 1];
 
             if (command != null)
             {
                 command.Undo();
             }
 
-            _commands.RemoveAt(0);
+            _commands.RemoveAt(_commands.Count - 1);
 
             yield return null;
         }
