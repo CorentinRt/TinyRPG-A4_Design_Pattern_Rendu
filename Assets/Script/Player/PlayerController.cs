@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Inputs")]
     [SerializeField] private InputActionReference _move;
+    [SerializeField] private InputActionReference _attack;
 
     [Header("Behaviours")]
     [SerializeField] private PlayerMovementsBehaviour _movements;
+    [SerializeField] private PlayerAttackBehaviour _attacks;
 
     #endregion
 
@@ -21,16 +23,25 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        // Move
         _move.action.started += OnReceiveMoveInput;
         _move.action.performed += OnReceiveMoveInput;
         _move.action.canceled += OnReceiveMoveInput;
+
+        // Attack
+        _attack.action.started += OnReceiveAttackInput;
     }
 
     private void OnDestroy()
     {
+        // Move
         _move.action.started -= OnReceiveMoveInput;
         _move.action.performed -= OnReceiveMoveInput;
         _move.action.canceled -= OnReceiveMoveInput;
+
+        // Attack
+        _attack.action.started -= OnReceiveAttackInput;
+
     }
 
     private void Start()
@@ -71,4 +82,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void OnReceiveAttackInput(InputAction.CallbackContext ctx)
+    {
+        if(_attacks != null)
+        {
+            _attacks.TriggerNewAttack(_datas.Attacks[0], 0);
+        }
+        else
+        {
+            Debug.LogError("Error : Try to attack but no attack behaviour linked to Player Controller ! Attack of player won't work !", this);
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SO_PlayerDatas", menuName = "Datas/Player", order = 1)]
@@ -11,6 +12,9 @@ public class SO_PlayerDatas : ScriptableObject
     [SerializeField] private float _deceleration = 5f;
     [SerializeField] private float _turningBoost = 5f;
 
+    [Header("Attacks")]
+    [SerializeField] private List<AttackParams> _attacks;
+
     #endregion
 
     #region Properties
@@ -20,6 +24,11 @@ public class SO_PlayerDatas : ScriptableObject
     public float Acceleration => _acceleration;
     public float Deceleration => _deceleration;
     public float TurningBoost => _turningBoost;
+
+
+    // Attacks
+    public List<AttackParams> Attacks => _attacks;
+
 
     #endregion
 }
