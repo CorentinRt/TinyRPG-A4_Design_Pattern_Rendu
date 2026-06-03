@@ -35,7 +35,6 @@ public class CharacterMovementsBehaviour : MonoBehaviour
             boost = turningBoost;
         }
 
-
         Vector2 tempVelocity = Vector2.zero;
         tempVelocity.x = _rb.linearVelocity.x;
         tempVelocity.y = _rb.linearVelocity.z;

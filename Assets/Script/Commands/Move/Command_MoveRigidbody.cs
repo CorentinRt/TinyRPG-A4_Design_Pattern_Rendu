@@ -23,23 +23,6 @@ public class Command_MoveRigidbody : Command
         public Vector3 AngularVelocity { get => _angularVelocity; set => _angularVelocity = value; }
 
         #endregion
-
-        public bool NearlyEquals(MoveRigidbody_Params other, float epsilon = 0.0001f, float epsilonRot = 0.1f)
-        {
-            if (!((Position - other.Position).sqrMagnitude < epsilon))
-                return false;
-
-            if (!(Quaternion.Angle(Rotation, other.Rotation) < epsilonRot))
-                return false;
-
-            if (!((LinearVelocity - other.LinearVelocity).sqrMagnitude < epsilon))
-                return false;
-
-            if (!((AngularVelocity - other.AngularVelocity).sqrMagnitude < epsilon))
-                return false;
-
-            return true;
-        }
     }
 
     #region Fields

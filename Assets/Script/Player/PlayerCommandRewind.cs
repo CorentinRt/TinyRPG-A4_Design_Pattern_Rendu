@@ -121,13 +121,15 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
                     continue;
                 }
 
-                if (_currentTimeAccumulated > command.TimeRegistered)
-                    break;
+                if (_currentTimeAccumulated <= command.TimeRegistered)
+                {
+                    command.Undo();
+                    _commands.RemoveAt(currentIndex);
+                    --currentIndex;
+                    continue;
+                }
 
-                command.Undo();
-
-                _commands.RemoveAt(currentIndex);
-                --currentIndex;
+                break;
             }
 
             _currentTimeAccumulated -= Time.deltaTime * _speedRewind;
