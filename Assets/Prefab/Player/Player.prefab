@@ -481,6 +481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2243817199016725903}
+  - component: {fileID: 6145507035894757175}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -504,6 +505,22 @@ Transform:
   - {fileID: 8019267730992289373}
   m_Father: {fileID: 5410832363735725558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6145507035894757175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933070227391500949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d9f4f9139971a478e469351fb892c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationLinker
+  _animator: {fileID: 4017012815927045721}
+  _movements: {fileID: 2928025331059148393}
+  _attacks: {fileID: 8624767364342676720}
+  _health: {fileID: 1867741483258744941}
 --- !u!1 &8518571996143094871
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +737,12 @@ PrefabInstance:
 --- !u!4 &625343852832257305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8640538035317054127, guid: d035779bf520f38499966b00a58bd75f,
+    type: 3}
+  m_PrefabInstance: {fileID: 9170720254062063542}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4017012815927045721 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5259002207622955503, guid: d035779bf520f38499966b00a58bd75f,
     type: 3}
   m_PrefabInstance: {fileID: 9170720254062063542}
   m_PrefabAsset: {fileID: 0}

@@ -82,12 +82,9 @@ public class PlayerController : MonoBehaviour
     {
         if (_movements != null)
         {
-            if (CanTriggerMove())
-            {
-                Vector2 dir = Vector2.ClampMagnitude(ctx.ReadValue<Vector2>(), 1f);
+            Vector2 dir = Vector2.ClampMagnitude(ctx.ReadValue<Vector2>(), 1f);
 
-                _movements.SetMoveDirection(dir);
-            }
+            _movements.SetMoveDirection(dir);
         }
         else
         {

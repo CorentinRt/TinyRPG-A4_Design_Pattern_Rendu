@@ -18,8 +18,8 @@ MonoBehaviour:
   _turningBoost: 2
   _attacks:
   - _duration: 0.15
-    _cooldown: 0.4
+    _cooldown: 0.25
     _comboBuffer: 0
     _damages: 5
     _canBeBlocked: 0
-    _impulseForce: 10
+    _impulseForce: 30
