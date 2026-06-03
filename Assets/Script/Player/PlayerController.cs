@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SO_PlayerDatas _datas;
 
     [Header("Inputs")]
-    [SerializeField] private InputActionReference _move;
-    [SerializeField] private InputActionReference _attack;
+    [SerializeField] private InputActionReference _moveInput;
+    [SerializeField] private InputActionReference _attackInput;
+    [SerializeField] private InputActionReference _rewindInput;
 
     [Header("Behaviours")]
     [SerializeField] private PlayerMovementsBehaviour _movements;
-    [SerializeField] private PlayerAttackBehaviour _attacks;
+    [SerializeField] private PlayerAttackBehaviour _attack;
+    [SerializeField] private PlayerAttackBehaviour _rewind;
 
     #endregion
 
@@ -24,23 +26,23 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         // Move
-        _move.action.started += OnReceiveMoveInput;
-        _move.action.performed += OnReceiveMoveInput;
-        _move.action.canceled += OnReceiveMoveInput;
+        _moveInput.action.started += OnReceiveMoveInput;
+        _moveInput.action.performed += OnReceiveMoveInput;
+        _moveInput.action.canceled += OnReceiveMoveInput;
 
         // Attack
-        _attack.action.started += OnReceiveAttackInput;
+        _attackInput.action.started += OnReceiveAttackInput;
     }
 
     private void OnDestroy()
     {
         // Move
-        _move.action.started -= OnReceiveMoveInput;
-        _move.action.performed -= OnReceiveMoveInput;
-        _move.action.canceled -= OnReceiveMoveInput;
+        _moveInput.action.started -= OnReceiveMoveInput;
+        _moveInput.action.performed -= OnReceiveMoveInput;
+        _moveInput.action.canceled -= OnReceiveMoveInput;
 
         // Attack
-        _attack.action.started -= OnReceiveAttackInput;
+        _attackInput.action.started -= OnReceiveAttackInput;
 
     }
 
@@ -85,9 +87,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnReceiveAttackInput(InputAction.CallbackContext ctx)
     {
-        if(_attacks != null)
+        if(_attack != null)
         {
-            _attacks.TriggerNewAttack(_datas.Attacks[0], 0);
+            _attack.TriggerNewAttack(_datas.Attacks[0], 0);
         }
         else
         {
