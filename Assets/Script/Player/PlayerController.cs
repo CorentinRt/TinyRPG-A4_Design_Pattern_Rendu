@@ -43,8 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         InitMovements();
 
-        Debug.Log("Init");
-
     }
 
     private void InitMovements()
