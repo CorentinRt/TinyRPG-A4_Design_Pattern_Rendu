@@ -20,6 +20,6 @@ MonoBehaviour:
   - _duration: 0.15
     _cooldown: 0.25
     _comboBuffer: 0
-    _damages: 5
+    _damages: 50
     _canBeBlocked: 0
     _impulseForce: 30

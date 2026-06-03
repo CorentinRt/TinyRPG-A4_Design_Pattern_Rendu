@@ -64,7 +64,7 @@ public class PlayerAnimationLinker : MonoBehaviour
         if (amountChanged >= 0)
             return;
 
-        if (currentHealth < 0 && amountChanged != 0)
+        if (currentHealth <= 0 && amountChanged != 0)
         {
             _animator.SetTrigger(_dieKey);
             return;
