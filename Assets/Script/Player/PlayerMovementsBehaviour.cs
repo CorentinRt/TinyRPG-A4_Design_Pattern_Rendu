@@ -82,11 +82,14 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
             afterMoveParams.LinearVelocity = RigidBody.linearVelocity;
             afterMoveParams.AngularVelocity = RigidBody.angularVelocity;
 
-            Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, beforeMoveParams, afterMoveParams);
-
-            if (PlayerCommandRewind.Exist)
+            if (!beforeMoveParams.NearlyEquals(afterMoveParams))    // to avoid unecessary and excessive allocation and registration of movements datas
             {
-                PlayerCommandRewind.Instance.RegisterCommand(commandMove);
+                Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, beforeMoveParams, afterMoveParams);
+
+                if (PlayerCommandRewind.Exist)
+                {
+                    PlayerCommandRewind.Instance.RegisterCommand(commandMove);
+                }
             }
         }
 
