@@ -63,6 +63,9 @@ public class CharacterMovementsBehaviour : MonoBehaviour
 
     public void UpdateAnchorDirectionRotation()
     {
+        if (_currentDir == Vector2.zero)
+            return;
+
         Quaternion currentRotation = _anchorRotation.rotation;
 
         Quaternion targetRotation = Quaternion.LookRotation(new Vector3(_currentDir.x, 0f, _currentDir.y), _anchorRotation.up);
