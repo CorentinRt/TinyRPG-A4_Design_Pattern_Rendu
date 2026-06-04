@@ -19,6 +19,7 @@ public class PlayerAnimationLinker : MonoBehaviour
     [SerializeField] private HealthBehaviour _health;
     [SerializeField] private string _hitKey = "Hit";
     [SerializeField] private string _dieKey = "Die";
+    [SerializeField] private string _reviveKey = "Revive";
 
     #endregion
 
@@ -33,6 +34,7 @@ public class PlayerAnimationLinker : MonoBehaviour
 
         // Health
         _health.onHealthChanged += OnReceivePlayerHealthChanged;
+        _health.onRevive += OnReceivePlayerRevive;
 
     }
 
@@ -46,6 +48,7 @@ public class PlayerAnimationLinker : MonoBehaviour
 
         // Health
         _health.onHealthChanged -= OnReceivePlayerHealthChanged;
+        _health.onRevive -= OnReceivePlayerRevive;
 
     }
 
@@ -71,5 +74,10 @@ public class PlayerAnimationLinker : MonoBehaviour
         }
 
         _animator.SetTrigger(_hitKey);
+    }
+
+    private void OnReceivePlayerRevive()
+    {
+        _animator.SetTrigger(_reviveKey);
     }
 }
