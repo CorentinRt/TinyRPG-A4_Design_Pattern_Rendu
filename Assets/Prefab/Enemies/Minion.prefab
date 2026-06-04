@@ -204,6 +204,9 @@ GameObject:
   - component: {fileID: 276777403643699626}
   - component: {fileID: 6598960834766427745}
   - component: {fileID: 4323506102092331168}
+  - component: {fileID: 3074177524864293566}
+  - component: {fileID: 7253420425686819218}
+  - component: {fileID: 411627544899639559}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Untagged
@@ -294,6 +297,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthBehaviour
   _autoInitOnStart: 1
   _startHealth: 100
+--- !u!114 &3074177524864293566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229650508908270049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bead08f2f1a20c64ebd25932004974d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  _data: {fileID: 11400000, guid: 2409048795232144690b8deb94847426, type: 2}
+  _healthBehaviour: {fileID: 4323506102092331168}
+  _agent: {fileID: 276777403643699626}
+  _movementBehaviour: {fileID: 7253420425686819218}
+  _player: {fileID: 0}
+--- !u!114 &7253420425686819218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229650508908270049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870661b8a43fb2943859f41d7ab6bd5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_MovementBehaviour
+  _agent: {fileID: 276777403643699626}
+  _enemyData: {fileID: 11400000, guid: 2409048795232144690b8deb94847426, type: 2}
+--- !u!114 &411627544899639559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8229650508908270049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824c31432a7a65a4a944ffbf64dfb850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_AttackBehaviour
 --- !u!1 &8596430753863400264
 GameObject:
   m_ObjectHideFlags: 0
