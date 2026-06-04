@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerAttackBehaviour _attack;
     [SerializeField] private PlayerCommandRewind _rewind;
 
+    [Header("Health")]
+    [SerializeField] private HealthBehaviour _health;
+
     #endregion
 
     public event Action<Vector2> onMoveInput;
@@ -36,6 +39,11 @@ public class PlayerController : MonoBehaviour
         // Rewind
         _rewindInput.action.started += OnReceiveRewindInput;
         _rewind.onSetEnableRewind += OnReceiveSetEnableRewind;
+
+        // Heath
+        _health.onDie += OnReceivePlayerDie;
+        _health.onRevive += OnReceivePlayerRevive;
+
     }
 
     private void OnDestroy()
@@ -51,6 +59,10 @@ public class PlayerController : MonoBehaviour
         // Rewind
         _rewindInput.action.started -= OnReceiveRewindInput;
         _rewind.onSetEnableRewind -= OnReceiveSetEnableRewind;
+
+        // Heath
+        _health.onDie -= OnReceivePlayerDie;
+        _health.onRevive -= OnReceivePlayerRevive;
 
     }
 
@@ -121,7 +133,43 @@ public class PlayerController : MonoBehaviour
 
     private void OnReceiveSetEnableRewind(bool enabled)
     {
-        _movements.SetMovementsEnable(!enabled);
+        UpdateMovementsEnabledState();
+    }
+
+    private void OnReceivePlayerDie()
+    {
+        UpdateMovementsEnabledState();
+        UpdateAttackEnabledState();
+
+        _rewind.StartRewindWithDelay(_datas.OnDeathRewindDelay);
+    }
+
+    private void OnReceivePlayerRevive()
+    {
+        UpdateMovementsEnabledState();
+        UpdateAttackEnabledState();
+    }
+
+    private void UpdateMovementsEnabledState()
+    {
+        if (_rewind.IsRewindEnabled() || _health.IsDead())
+        {
+            _movements.SetMovementsEnable(false);
+            return;
+        }
+
+        _movements.SetMovementsEnable(true);
+    }
+
+    private void UpdateAttackEnabledState()
+    {
+        if (_rewind.IsRewindEnabled() || _health.IsDead())
+        {
+            _attack.SetAttackEnable(false);
+            return;
+        }
+
+        _attack.SetAttackEnable(true);
     }
 
     private bool CanTriggerMove()

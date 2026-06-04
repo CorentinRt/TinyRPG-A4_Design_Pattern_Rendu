@@ -191,6 +191,7 @@ MonoBehaviour:
   _movements: {fileID: 2928025331059148393}
   _attack: {fileID: 8624767364342676720}
   _rewind: {fileID: 8072416519539382671}
+  _health: {fileID: 1867741483258744941}
 --- !u!1 &1558698249687060746
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackBehaviour
   _hitBoxesTriggersListeners:
   - {fileID: 6913600359721931543}
+  _awakeEnable: 1
   _rb: {fileID: 9115170152858762924}
   _anchorDirection: {fileID: 5410832363735725558}
 --- !u!114 &8072416519539382671
@@ -394,9 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854c8aabc7096dd47acbcfea16aa1009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCommandRewind
-  _maxFreeTimeBeforeRewind: 15
-  _minAccumulatedTimeToRewind: 2
-  _speedRewind: 1
+  _datas: {fileID: 11400000, guid: 6c6ce1b10d4e59f4fb2cea055f405fdb, type: 2}
 --- !u!1 &6331558144665418028
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +519,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationLinker
   _animator: {fileID: 4017012815927045721}
   _movements: {fileID: 2928025331059148393}
+  _walkSpeedKey: WalkSpeed
   _attacks: {fileID: 8624767364342676720}
+  _attackKey: Attack
   _health: {fileID: 1867741483258744941}
+  _hitKey: Hit
+  _dieKey: Die
 --- !u!1 &8518571996143094871
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,30 +66,35 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
 
     private void FixedUpdate()
     {
-        if (_datas != null && _isMovementsEnabled)
+        UpdatePlayerMovements();
+
+    }
+
+    private void UpdatePlayerMovements()
+    {
+        if (_datas == null || !_isMovementsEnabled)
+            return;
+
+        MoveRigidbody_Params beforeMoveParams = new MoveRigidbody_Params();
+        beforeMoveParams.Position = RigidBody.position;
+        beforeMoveParams.Rotation = RigidBody.rotation;
+        beforeMoveParams.LinearVelocity = RigidBody.linearVelocity;
+        beforeMoveParams.AngularVelocity = RigidBody.angularVelocity;
+
+        UpdateMovements(_isMovementsEnabled, _datas.Acceleration, _datas.MaxVelocity, _datas.TurningBoost, _datas.Deceleration);
+
+        MoveRigidbody_Params afterMoveParams = new MoveRigidbody_Params();
+        afterMoveParams.Position = RigidBody.position;
+        afterMoveParams.Rotation = RigidBody.rotation;
+        afterMoveParams.LinearVelocity = RigidBody.linearVelocity;
+        afterMoveParams.AngularVelocity = RigidBody.angularVelocity;
+
+        Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, beforeMoveParams, afterMoveParams);
+
+        if (PlayerCommandRewind.Exist)
         {
-            MoveRigidbody_Params beforeMoveParams = new MoveRigidbody_Params();
-            beforeMoveParams.Position = RigidBody.position;
-            beforeMoveParams.Rotation = RigidBody.rotation;
-            beforeMoveParams.LinearVelocity = RigidBody.linearVelocity;
-            beforeMoveParams.AngularVelocity = RigidBody.angularVelocity;
-
-            UpdateMovements(_isMovementsEnabled, _datas.Acceleration, _datas.MaxVelocity, _datas.TurningBoost, _datas.Deceleration);
-
-            MoveRigidbody_Params afterMoveParams = new MoveRigidbody_Params();
-            afterMoveParams.Position = RigidBody.position;
-            afterMoveParams.Rotation = RigidBody.rotation;
-            afterMoveParams.LinearVelocity = RigidBody.linearVelocity;
-            afterMoveParams.AngularVelocity = RigidBody.angularVelocity;
-
-            Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, beforeMoveParams, afterMoveParams);
-
-            if (PlayerCommandRewind.Exist)
-            {
-                PlayerCommandRewind.Instance.RegisterCommand(commandMove);
-            }
+            PlayerCommandRewind.Instance.RegisterCommand(commandMove);
         }
-
     }
 
     public void SetMovementsEnable(bool enable)

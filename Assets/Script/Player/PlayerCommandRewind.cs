@@ -8,10 +8,8 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
 {
     #region Fields
 
-    [Header("Rewind")]
-    [SerializeField] private float _maxFreeTimeBeforeRewind = 15f;
-    [SerializeField] private float _minAccumulatedTimeToRewind = 2f;
-    [SerializeField] private float _speedRewind = 1.0f;
+    [Header("Datas")]
+    [SerializeField] private SO_PlayerDatas _datas;
 
     private List<Command> _commands = new();
 
@@ -20,6 +18,7 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
     private float _currentTimeAccumulated;
 
     private Coroutine _rewindCoroutine;
+    private Coroutine _rewindWithDelayCoroutine;
 
 
     #endregion
@@ -41,7 +40,7 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
             
         _currentTimeAccumulated += deltaTime;
 
-        if (_currentTimeAccumulated > _maxFreeTimeBeforeRewind)
+        if (_currentTimeAccumulated > _datas.MaxFreeTimeBeforeRewind)
         {
             SetEnableRewind(true);  // auto rewind
             Debug.Log("Auto rewind Triggered !", this);
@@ -72,7 +71,7 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
         if (_isEnabled == enable)
             return;
 
-        if (enable && _currentTimeAccumulated < _minAccumulatedTimeToRewind)
+        if (enable && _currentTimeAccumulated < _datas.MinAccumulatedTimeToRewind)
             return;
 
         _isEnabled = enable;
@@ -132,11 +131,39 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
                 break;
             }
 
-            _currentTimeAccumulated -= Time.deltaTime * _speedRewind;
+            _currentTimeAccumulated -= Time.deltaTime * _datas.RewindSpeed;
 
             yield return null;
         }
 
         SetEnableRewind(false);
+    }
+
+    public void StartRewindWithDelay(float delay)
+    {
+        if (IsRewindEnabled())
+            return;
+
+        StartRewindWithDelayCoroutine(delay);
+    }
+    private void StartRewindWithDelayCoroutine(float delay)
+    {
+        StopRewindWithDelayCoroutine();
+
+        _rewindWithDelayCoroutine = StartCoroutine(RewindWithDelayCoroutine(delay));
+    }
+    private void StopRewindWithDelayCoroutine()
+    {
+        if (_rewindWithDelayCoroutine != null)
+        {
+            StopCoroutine(_rewindWithDelayCoroutine);
+            _rewindWithDelayCoroutine = null;
+        }
+    }
+    private IEnumerator RewindWithDelayCoroutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        SetEnableRewind(true);
     }
 }

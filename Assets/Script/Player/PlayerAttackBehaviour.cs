@@ -5,6 +5,9 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 {
     #region Fields
 
+    [Header("Init")]
+    [SerializeField] private bool _awakeEnable = true;
+
     [Header("Physics")]
     [SerializeField] private Rigidbody _rb;
 
@@ -15,9 +18,26 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 
     private bool _isAttacking;
 
+    private bool _attackEnabled;
+
     private Coroutine _attackDurationCoroutine;
 
     #endregion
+
+    private void Awake()
+    {
+        SetAttackEnable(true);
+
+    }
+
+    public void SetAttackEnable(bool enable)
+    {
+        _awakeEnable = enable;
+    }
+    public bool IsAttackEnabled()
+    {
+        return _awakeEnable;
+    }
 
     protected virtual bool IsInCooldown()
     {
@@ -37,7 +57,7 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 
     public override void TriggerNewAttack(AttackParams attackParams, int index)
     {
-        if (IsInCooldown() || IsAttacking())
+        if (IsInCooldown() || IsAttacking() || !IsAttackEnabled())
             return;
 
         base.TriggerNewAttack(attackParams, index);
