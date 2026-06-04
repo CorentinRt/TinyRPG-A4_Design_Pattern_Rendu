@@ -22,6 +22,11 @@ public class HealthBehaviourProxy : MonoBehaviour, IHealth
         _proxy.Die();
     }
 
+    public void Revive(float reviveHealth)
+    {
+        _proxy.Revive(reviveHealth);
+    }
+
     public float GetHealth()
     {
         return _proxy.GetHealth();

@@ -25,6 +25,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
 
     public event Action<float, float> onHealthChanged;
     public event Action onDie;
+    public event Action onRevive;
     public event Action onTakeDamage;
 
     public event Action<float> onMaxHealthChanged;
@@ -72,6 +73,18 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         _isDead = true;
 
         onDie?.Invoke();
+    }
+
+    public void Revive(float reviveHealth)
+    {
+        if (!IsDead())
+            return;
+
+        _isDead = false;
+
+        SetHealth(reviveHealth);
+
+        onRevive?.Invoke();
     }
 
     public float GetHealth()

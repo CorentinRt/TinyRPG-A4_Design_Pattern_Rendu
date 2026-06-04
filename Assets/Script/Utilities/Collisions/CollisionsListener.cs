@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class CollisionsListener : MonoBehaviour
 {
-
-
-    private event Action<Collision> onCollisionEnter;
-    private event Action<Collision> onCollisionExit;
+    public event Action<Collision> onCollisionEnter;
+    public event Action<Collision> onCollisionExit;
 
 
     private void OnCollisionEnter(Collision collision)

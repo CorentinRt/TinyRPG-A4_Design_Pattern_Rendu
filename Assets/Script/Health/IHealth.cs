@@ -13,6 +13,8 @@ public interface IHealth
 
     public abstract void Die();
 
+    public abstract void Revive(float reviveHealth);
+
     public abstract bool IsDead();
 
     public abstract float GetHealth();
