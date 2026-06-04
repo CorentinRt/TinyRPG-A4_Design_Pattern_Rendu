@@ -13,6 +13,8 @@ public class Command_MoveRigidbody : Command
 
         private Vector3 _angularVelocity;
 
+        private Quaternion _visualAnchorRotation;
+
 
         #endregion
 
@@ -21,6 +23,8 @@ public class Command_MoveRigidbody : Command
         public Quaternion Rotation { get => _rotation; set => _rotation = value; }
         public Vector3 LinearVelocity { get => _linearVelocity; set => _linearVelocity = value; }
         public Vector3 AngularVelocity { get => _angularVelocity; set => _angularVelocity = value; }
+        public Quaternion VisualAnchorRotation { get => _visualAnchorRotation; set => _visualAnchorRotation = value; }
+
 
         #endregion
     }
@@ -29,14 +33,17 @@ public class Command_MoveRigidbody : Command
 
     private Rigidbody _rb;
 
+    private Transform _anchorRotation;
+
     private MoveRigidbody_Params _beforeMoveParams;
     private MoveRigidbody_Params _afterMoveParams;
 
     #endregion
 
-    public Command_MoveRigidbody(Rigidbody rb, MoveRigidbody_Params beforeMoveParams, MoveRigidbody_Params afterMoveParams)
+    public Command_MoveRigidbody(Rigidbody rb, Transform anchorRotation, MoveRigidbody_Params beforeMoveParams, MoveRigidbody_Params afterMoveParams)
     {
         _rb = rb;
+        _anchorRotation = anchorRotation;
         _beforeMoveParams = beforeMoveParams;
         _afterMoveParams = afterMoveParams;
     }
@@ -63,5 +70,7 @@ public class Command_MoveRigidbody : Command
         _rb.rotation = moveParams.Rotation;
         _rb.linearVelocity = moveParams.LinearVelocity;
         _rb.angularVelocity = moveParams.AngularVelocity;
+        _anchorRotation.rotation = moveParams.VisualAnchorRotation;
+        
     }
 }

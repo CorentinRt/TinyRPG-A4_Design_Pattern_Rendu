@@ -9,7 +9,7 @@ public class CharacterMovementsBehaviour : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
 
     [Header("Anchor Direction")]
-    [SerializeField] private Transform _anchorDirection;
+    [SerializeField] private Transform _anchorRotation;
     [SerializeField] private float _rotationMatchDirectionSpeed = 10f;
 
     private Vector2 _currentDir;
@@ -18,6 +18,7 @@ public class CharacterMovementsBehaviour : MonoBehaviour
 
     #region Properties
     public Rigidbody RigidBody => _rb;
+    public Transform AnchorRotation => _anchorRotation;
 
     #endregion
 
@@ -62,13 +63,13 @@ public class CharacterMovementsBehaviour : MonoBehaviour
 
     public void UpdateAnchorDirectionRotation()
     {
-        Quaternion currentRotation = _anchorDirection.rotation;
+        Quaternion currentRotation = _anchorRotation.rotation;
 
-        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(_currentDir.x, 0f, _currentDir.y), _anchorDirection.up);
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(_currentDir.x, 0f, _currentDir.y), _anchorRotation.up);
 
         Quaternion finalRotation = Quaternion.Lerp(currentRotation, targetRotation, _rotationMatchDirectionSpeed * Time.deltaTime);
 
-        _anchorDirection.rotation = finalRotation;
+        _anchorRotation.rotation = finalRotation;
     }
 
 }

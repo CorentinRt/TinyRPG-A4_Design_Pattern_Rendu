@@ -80,6 +80,7 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
         beforeMoveParams.Rotation = RigidBody.rotation;
         beforeMoveParams.LinearVelocity = RigidBody.linearVelocity;
         beforeMoveParams.AngularVelocity = RigidBody.angularVelocity;
+        beforeMoveParams.VisualAnchorRotation = AnchorRotation.rotation;
 
         UpdateMovements(_isMovementsEnabled, _datas.Acceleration, _datas.MaxVelocity, _datas.TurningBoost, _datas.Deceleration);
 
@@ -88,8 +89,9 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
         afterMoveParams.Rotation = RigidBody.rotation;
         afterMoveParams.LinearVelocity = RigidBody.linearVelocity;
         afterMoveParams.AngularVelocity = RigidBody.angularVelocity;
+        afterMoveParams.VisualAnchorRotation = AnchorRotation.rotation;
 
-        Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, beforeMoveParams, afterMoveParams);
+        Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, AnchorRotation, beforeMoveParams, afterMoveParams);
 
         if (PlayerCommandRewind.Exist)
         {
