@@ -1,4 +1,3 @@
-using UnityEngine;
 public class Enemy_GenericState : GenericState<EnemieStates>
 {
     protected Enemy_StateMachine _enemyStateMachine;
@@ -30,9 +29,9 @@ public class Enemy_GenericState : GenericState<EnemieStates>
 
     protected void TryAttack()
     {
-        float distPlayerEnemy = Vector3.Distance(_enemyStateMachine.Player.transform.position, _enemyStateMachine.transform.position);
-        if (_enemyStateMachine.Data.MinDistAttackPlayer > distPlayerEnemy)
-            StateMachine.ChangeState(EnemieStates.Attack);
+        //float distPlayerEnemy = Vector3.Distance(_enemyStateMachine.Player.transform.position, _enemyStateMachine.transform.position);
+        //if (_enemyStateMachine.Data.MinDistAttackPlayer > distPlayerEnemy)
+        //StateMachine.ChangeState(EnemieStates.Attack);
     }
 
     protected void OnTakeDamage()

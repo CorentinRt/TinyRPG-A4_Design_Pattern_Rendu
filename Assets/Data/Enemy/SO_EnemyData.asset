@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055158b74b939e4197afdded8a95512, type: 3}
   m_Name: SO_EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::SO_EnemyData
-  _radiusExploration: 50
-  _timeBeforeNextMove: 5
+  radiusExploration: 50
+  timeBeforeNextMove: 5
+  MinDistAttackPlayer: 5
+  _attackParams:
+  - _duration: 0.3
+    _cooldown: 1
+    _comboBuffer: 0
+    _damages: 10
+    _canBeBlocked: 0
+    _impulseForce: 0

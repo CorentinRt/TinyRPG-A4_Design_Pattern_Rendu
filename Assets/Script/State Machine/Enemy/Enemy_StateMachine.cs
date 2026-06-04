@@ -18,7 +18,8 @@ public class Enemy_StateMachine : StateMachine<EnemieStates>
     [SerializeField] private HealthBehaviour _healthBehaviour;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Enemy_MovementBehaviour _movementBehaviour;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private Enemy_AttackBehaviour _attackBehaviour;
+
 
     #endregion
     #region Properties
@@ -26,7 +27,7 @@ public class Enemy_StateMachine : StateMachine<EnemieStates>
     public NavMeshAgent Agent { get => _agent; }
     public HealthBehaviour HealthBehaviour { get => _healthBehaviour; }
     public Enemy_MovementBehaviour MovementBehaviour { get => _movementBehaviour; }
-    public GameObject Player { get => _player; set => _player = value; }
+    public Enemy_AttackBehaviour AttackBehaviour { get => _attackBehaviour; }
 
     #endregion
 
