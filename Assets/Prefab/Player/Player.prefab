@@ -364,6 +364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementsBehaviour
   _rb: {fileID: 9115170152858762924}
+  _anchorDirection: {fileID: 5410832363735725558}
+  _rotationMatchDirectionSpeed: 10
   _autoInitOnStart: 0
   _movementsDisabledByDefault: 0
   _autoInitPlayerDatas: {fileID: 0}

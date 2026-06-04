@@ -8,6 +8,10 @@ public class CharacterMovementsBehaviour : MonoBehaviour
     [Header("Physics")]
     [SerializeField] private Rigidbody _rb;
 
+    [Header("Anchor Direction")]
+    [SerializeField] private Transform _anchorDirection;
+    [SerializeField] private float _rotationMatchDirectionSpeed = 10f;
+
     private Vector2 _currentDir;
 
     #endregion
@@ -52,8 +56,19 @@ public class CharacterMovementsBehaviour : MonoBehaviour
         _rb.linearVelocity = new Vector3(tempVelocity.x, 0f, tempVelocity.y);
 
         onVelocityChange?.Invoke(_rb.linearVelocity);
+
+        UpdateAnchorDirectionRotation();
     }
 
+    public void UpdateAnchorDirectionRotation()
+    {
+        Quaternion currentRotation = _anchorDirection.rotation;
 
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(_currentDir.x, 0f, _currentDir.y), _anchorDirection.up);
+
+        Quaternion finalRotation = Quaternion.Lerp(currentRotation, targetRotation, _rotationMatchDirectionSpeed * Time.deltaTime);
+
+        _anchorDirection.rotation = finalRotation;
+    }
 
 }

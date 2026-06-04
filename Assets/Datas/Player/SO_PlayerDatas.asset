@@ -23,3 +23,7 @@ MonoBehaviour:
     _damages: 50
     _canBeBlocked: 0
     _impulseForce: 30
+  _rewindSpeed: 2
+  _onDeathRewindDelay: 2
+  _maxFreeTimeBeforeRewind: 15
+  _minAccumulatedTimeToRewind: 2
