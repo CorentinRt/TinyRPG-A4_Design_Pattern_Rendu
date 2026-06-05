@@ -6,6 +6,7 @@ public enum EnemieStates
     None,
     Idle,
     Move,
+    ChasePlayer,
     Attack,
     TakeDamage,
     Dead
@@ -60,6 +61,12 @@ public class Enemy_StateMachine : StateMachine<EnemieStates>
                 break;
             case (EnemieStates.Dead):
                 state = new Enemy_DeadState();
+                break;
+            case (EnemieStates.ChasePlayer):
+                state = new Enemy_ChasePlayerState();
+                break;
+            default:
+                Debug.LogError("Missing state class in Enemy state machine");
                 break;
         }
 

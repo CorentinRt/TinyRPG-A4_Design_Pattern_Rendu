@@ -4,16 +4,19 @@ using UnityEngine;
 
 public abstract class StateMachine<T> : MonoBehaviour where T : System.Enum
 {
+    #region Fields
     private GenericState<T> _currentState;
     private List<GenericState<T>> _statesList = new();
     [SerializeField] private List<T> _allStates;
-
+    #endregion
+    #region Properties
     public GenericState<T> CurrentState { get => _currentState; }
+
+    #endregion
 
     protected void AddState(GenericState<T> state)
     {
         _statesList.Add(state);
-        Debug.Log(state.GetStateID());
     }
 
     public virtual void InitStateMachine()
@@ -49,10 +52,10 @@ public abstract class StateMachine<T> : MonoBehaviour where T : System.Enum
 
         if (_currentState != null)
         {
-            Debug.Log(_currentState.GetStateID());
             _currentState.StateExit(idNextState);
         }
 
+        Debug.Log(nextStates.GetStateID());
 
         T lastState = _currentState != null ? _currentState.GetStateID() : default;
         _currentState = nextStates;
@@ -69,15 +72,9 @@ public abstract class StateMachine<T> : MonoBehaviour where T : System.Enum
     {
         foreach (T state in _allStates)
         {
-
-            Debug.Log(state);
-        }
-        foreach (T state in _allStates)
-        {
             CreateStateById(state);
         }
     }
 
     protected abstract void CreateStateById(T id);
-
 }

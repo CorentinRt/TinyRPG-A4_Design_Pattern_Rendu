@@ -1,7 +1,10 @@
+using UnityEngine;
+
 public class Enemy_GenericState : GenericState<EnemieStates>
 {
+    #region Fields
     protected Enemy_StateMachine _enemyStateMachine;
-
+    #endregion
     public override EnemieStates GetStateID()
     {
         return EnemieStates.None;
@@ -33,13 +36,6 @@ public class Enemy_GenericState : GenericState<EnemieStates>
         base.StateUpdate(deltaTime);
     }
 
-    protected void SearchPlayer()
-    {
-        //float distPlayerEnemy = Vector3.Distance(_enemyStateMachine., _enemyStateMachine.transform.position);
-        //if (_enemyStateMachine.Data.MinDistAttackPlayer > distPlayerEnemy)
-        //StateMachine.ChangeState(EnemieStates.Attack);
-    }
-
     protected void OnTakeDamage()
     {
         StateMachine.ChangeState(EnemieStates.TakeDamage);
@@ -48,5 +44,11 @@ public class Enemy_GenericState : GenericState<EnemieStates>
     protected void OnDie()
     {
         StateMachine.ChangeState(EnemieStates.Dead);
+    }
+
+    protected void SearchPlayer()
+    {
+        if (Vector3.Distance(PlayerController.Instance.transform.position, StateMachine.transform.position) < _enemyStateMachine.Data.DistanceSight)
+            StateMachine.ChangeState(EnemieStates.ChasePlayer);
     }
 }

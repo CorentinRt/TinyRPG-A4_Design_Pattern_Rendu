@@ -20,5 +20,7 @@ public class Enemy_MoveState : Enemy_GenericState
         base.StateUpdate(deltaTime);
         if (_enemyStateMachine.Agent.velocity.magnitude >= 0)
             StateMachine.ChangeState(EnemieStates.Idle);
+
+        SearchPlayer();
     }
 }

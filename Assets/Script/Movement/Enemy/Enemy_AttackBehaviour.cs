@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class Enemy_AttackBehaviour : AttackBehaviourBase
 {
+    #region Fields
     private Coroutine _attackDurationCoroutine;
     private bool _isAttacking;
     private float _lastAttackTime = -1f;
-
+    #endregion
+    #region Properties
     public bool IsAttacking { get => _isAttacking; }
-
+    #endregion
     private void StartAttackDurationCoroutine(AttackParams attackParams)
     {
         StopAttackDurationCoroutine();
