@@ -26,15 +26,17 @@ public class PlayerHealthRewindableRegistering : MonoBehaviour
 
     private void ReceiveOnDie()
     {
-        if (PlayerCommandRewind.Exist)
+        if (!PlayerCommandRewind.Exist)
             return;
 
+        Command_Die commandDie = new Command_Die(_health);
 
+        PlayerCommandRewind.Instance.RegisterCommand(commandDie);
     }
 
     private void ReceiveOnHealthChanged(float currentHealth, float amountChanged)
     {
-        if (PlayerCommandRewind.Exist)
+        if (!PlayerCommandRewind.Exist)
             return;
 
         Command_ChangeHealth commandChangeHealth = 
