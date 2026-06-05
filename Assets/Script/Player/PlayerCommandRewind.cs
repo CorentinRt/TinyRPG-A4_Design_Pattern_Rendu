@@ -11,7 +11,7 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
     [Header("Datas")]
     [SerializeField] private SO_PlayerDatas _datas;
 
-    private List<Command> _commands = new();
+    private List<Command> _commands = new(200); // 200 to set a init length and optimize a bit the resize of the list
 
     private bool _isEnabled;
 

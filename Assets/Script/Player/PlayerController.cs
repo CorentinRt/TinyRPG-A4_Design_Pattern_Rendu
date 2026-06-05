@@ -123,7 +123,10 @@ public class PlayerController : GenericSingleton<PlayerController>
     {
         if (_rewind != null)
         {
-            _rewind.SetEnableRewind(!_rewind.IsRewindEnabled());
+            if (!_health.IsDead())
+            {
+                _rewind.SetEnableRewind(!_rewind.IsRewindEnabled());
+            }
         }
         else
         {
@@ -134,6 +137,7 @@ public class PlayerController : GenericSingleton<PlayerController>
     private void OnReceiveSetEnableRewind(bool enabled)
     {
         UpdateMovementsEnabledState();
+        UpdateAttackEnabledState();
     }
 
     private void OnReceivePlayerDie()
@@ -155,6 +159,7 @@ public class PlayerController : GenericSingleton<PlayerController>
         if (_rewind.IsRewindEnabled() || _health.IsDead())
         {
             _movements.SetMovementsEnable(false);
+            _movements.SetMoveDirection(Vector2.zero);
             return;
         }
 

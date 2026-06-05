@@ -48,7 +48,9 @@ public class HealthBehaviour : MonoBehaviour, IHealth
     {
         SetMaxHealth(maxHealth);
 
-        SetHealth(_maxHealth);
+        SetHealth(_maxHealth, false);
+
+        onHealthChanged?.Invoke(_currentHealth, 0f);
     }
 
     public void SetMaxHealth(float maxHealth)
@@ -65,12 +67,15 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         onTakeDamage?.Invoke();
     }
 
+    [Button]
     public void Die()
     {
         if (IsDead())
             return;
 
         _isDead = true;
+
+        SetHealth(0f);
 
         onDie?.Invoke();
     }
@@ -101,7 +106,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         return _isDead;
     }
 
-    public void SetHealth(float health)
+    public void SetHealth(float health, bool notifyEvent = true)
     {
         if (IsDead())
             return;
@@ -112,7 +117,10 @@ public class HealthBehaviour : MonoBehaviour, IHealth
 
         float amountChanged = _currentHealth - previousCurrentHealth;
 
-        onHealthChanged?.Invoke(_currentHealth, amountChanged);
+        if (notifyEvent)
+        {
+            onHealthChanged?.Invoke(_currentHealth, amountChanged);
+        }
 
         if (_currentHealth == 0f)
         {

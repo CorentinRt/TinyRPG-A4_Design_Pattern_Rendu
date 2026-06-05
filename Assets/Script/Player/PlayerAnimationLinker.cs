@@ -34,6 +34,7 @@ public class PlayerAnimationLinker : MonoBehaviour
 
         // Health
         _health.onHealthChanged += OnReceivePlayerHealthChanged;
+        _health.onDie += OnReceivePlayerDies;
         _health.onRevive += OnReceivePlayerRevive;
 
     }
@@ -48,6 +49,7 @@ public class PlayerAnimationLinker : MonoBehaviour
 
         // Health
         _health.onHealthChanged -= OnReceivePlayerHealthChanged;
+        _health.onDie -= OnReceivePlayerDies;
         _health.onRevive -= OnReceivePlayerRevive;
 
     }
@@ -67,13 +69,12 @@ public class PlayerAnimationLinker : MonoBehaviour
         if (amountChanged >= 0)
             return;
 
-        if (currentHealth <= 0 && amountChanged != 0)
-        {
-            _animator.SetTrigger(_dieKey);
-            return;
-        }
-
         _animator.SetTrigger(_hitKey);
+    }
+
+    private void OnReceivePlayerDies()
+    {
+        _animator.SetTrigger(_dieKey);
     }
 
     private void OnReceivePlayerRevive()

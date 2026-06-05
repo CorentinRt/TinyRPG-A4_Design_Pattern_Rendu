@@ -47,7 +47,7 @@ public class HealthBehaviourProxy : MonoBehaviour, IHealth
         return _proxy.IsDead();
     }
 
-    public void SetHealth(float health)
+    public void SetHealth(float health, bool notifyEvent = true)
     {
         _proxy.SetHealth(health);
     }
