@@ -28,15 +28,17 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
     {
         SetAttackEnable(true);
 
+        SetAttackEnable(_awakeEnable);
+
     }
 
     public void SetAttackEnable(bool enable)
     {
-        _awakeEnable = enable;
+        _attackEnabled = enable;
     }
     public bool IsAttackEnabled()
     {
-        return _awakeEnable;
+        return _attackEnabled;
     }
 
     protected virtual bool IsInCooldown()

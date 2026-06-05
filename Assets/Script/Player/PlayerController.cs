@@ -158,8 +158,9 @@ public class PlayerController : GenericSingleton<PlayerController>
     {
         if (_rewind.IsRewindEnabled() || _health.IsDead())
         {
-            _movements.SetMovementsEnable(false);
             _movements.SetMoveDirection(Vector2.zero);
+            _movements.SetMovementsEnable(false);
+            _movements.SetLinearVelocity(Vector3.zero);
             return;
         }
 
@@ -175,14 +176,6 @@ public class PlayerController : GenericSingleton<PlayerController>
         }
 
         _attack.SetAttackEnable(true);
-    }
-
-    private bool CanTriggerMove()
-    {
-        if (_rewind == null)
-            return true;
-
-        return !_rewind.IsRewindEnabled();
     }
 
     private bool CanTriggerAttack()
