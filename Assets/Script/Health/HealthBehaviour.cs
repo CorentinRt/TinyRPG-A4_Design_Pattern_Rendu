@@ -67,12 +67,15 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         onTakeDamage?.Invoke();
     }
 
+    [Button]
     public void Die()
     {
         if (IsDead())
             return;
 
         _isDead = true;
+
+        SetHealth(0f);
 
         onDie?.Invoke();
     }
