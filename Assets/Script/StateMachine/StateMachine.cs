@@ -55,8 +55,6 @@ public abstract class StateMachine<T> : MonoBehaviour where T : System.Enum
             _currentState.StateExit(idNextState);
         }
 
-        Debug.Log(nextStates.GetStateID());
-
         T lastState = _currentState != null ? _currentState.GetStateID() : default;
         _currentState = nextStates;
         _currentState.StateEnter(lastState);

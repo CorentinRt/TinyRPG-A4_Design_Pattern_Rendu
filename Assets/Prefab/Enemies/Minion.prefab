@@ -80,7 +80,6 @@ GameObject:
   - component: {fileID: 3036248033913269463}
   - component: {fileID: 2966002695725094474}
   - component: {fileID: 6987781069431041591}
-  - component: {fileID: 4068354540442442707}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -119,7 +118,7 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: f05b4ef6816071f409a757c335def234, type: 2}
   _healthBehaviour: {fileID: 4323506102092331168}
   _agent: {fileID: 276777403643699626}
-  _movementBehaviour: {fileID: 4068354540442442707}
+  _movementBehaviour: {fileID: 2979251761247913406}
   _attackBehaviour: {fileID: 9046565977767031624}
 --- !u!114 &6987781069431041591
 MonoBehaviour:
@@ -134,20 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _stateMachine: {fileID: 2966002695725094474}
---- !u!114 &4068354540442442707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3077064512149061305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 870661b8a43fb2943859f41d7ab6bd5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_MovementBehaviour
-  _agent: {fileID: 276777403643699626}
-  _enemyData: {fileID: 11400000, guid: f05b4ef6816071f409a757c335def234, type: 2}
 --- !u!1 &3353736508690587733
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7057260751545007395}
   - component: {fileID: 9046565977767031624}
+  - component: {fileID: 2979251761247913406}
   m_Layer: 0
   m_Name: Actions
   m_TagString: Untagged
@@ -475,6 +461,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_AttackBehaviour
   _hitBoxesTriggersListeners:
   - {fileID: 53582440675754837}
+--- !u!114 &2979251761247913406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596430753863400264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870661b8a43fb2943859f41d7ab6bd5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_MovementBehaviour
+  _agent: {fileID: 276777403643699626}
+  _enemyData: {fileID: 11400000, guid: f05b4ef6816071f409a757c335def234, type: 2}
 --- !u!1 &9185703701004401451
 GameObject:
   m_ObjectHideFlags: 0
