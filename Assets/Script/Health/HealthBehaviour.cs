@@ -48,7 +48,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
     {
         SetMaxHealth(maxHealth);
 
-        SetHealth(_maxHealth);
+        SetHealth(_maxHealth, false);
 
         onHealthChanged?.Invoke(_currentHealth, 0f);
     }
