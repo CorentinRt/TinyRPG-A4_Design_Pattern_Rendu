@@ -16,12 +16,7 @@ public abstract class StateMachine<T> : MonoBehaviour where T : System.Enum
         _statesList.Add(state);
     }
 
-    protected void StateAtStart(T id)
-    {
-        _currentState = GetStateById(id);
-    }
-
-    private void InitStateMachine()
+    public virtual void InitStateMachine()
     {
         foreach (GenericState<T> state in _statesList)
         {
@@ -51,9 +46,10 @@ public abstract class StateMachine<T> : MonoBehaviour where T : System.Enum
         _currentState.StateEnter(_previousState.EnumState);
     }
 
-    private void Update()
+    private void UpdateStateMachine()
     {
-        _currentState.StateUpdate(Time.deltaTime);
+        if (_currentState != null)
+            _currentState.StateUpdate(Time.deltaTime);
     }
 
     protected abstract void CreateStateById(T id);

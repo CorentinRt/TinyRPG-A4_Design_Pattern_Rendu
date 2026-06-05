@@ -31,10 +31,12 @@ public class Enemy_StateMachine : StateMachine<EnemieStates>
 
     #endregion
 
-    private void Start()
+    public override void InitStateMachine()
     {
-        StateAtStart(EnemieStates.Idle);
+        base.InitStateMachine();
+        ChangeState(EnemieStates.Idle);
     }
+
 
     protected override void CreateStateById(EnemieStates id)
     {
