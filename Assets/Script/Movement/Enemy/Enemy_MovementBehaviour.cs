@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 public class Enemy_MovementBehaviour : MonoBehaviour
 {
@@ -15,12 +14,12 @@ public class Enemy_MovementBehaviour : MonoBehaviour
     public event Action onMove;
     public void Move()
     {
-        _agent.Move(Random.insideUnitCircle * _enemyData.radiusExploration);
+        //_agent.destination = (Random.insideUnitCircle * _enemyData.radiusExploration);
     }
 
     public void Idle()
     {
-        StartCoroutine(WaitBeforeNextMove());
+        //StartCoroutine(WaitBeforeNextMove());
     }
 
     IEnumerator WaitBeforeNextMove()

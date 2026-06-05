@@ -1,6 +1,9 @@
 public class Enemy_MoveState : Enemy_GenericState
 {
-
+    public override EnemieStates GetStateID()
+    {
+        return EnemieStates.Move;
+    }
 
     public override void StateInit(StateMachine<EnemieStates> stateMachine)
     {

@@ -1,11 +1,11 @@
 
-public class GenericState<T> where T : System.Enum
+public abstract class GenericState<T> where T : System.Enum
 {
     private StateMachine<T> _stateMachine;
-    private T _enumState;
 
-    public T EnumState { get => _enumState; }
     public StateMachine<T> StateMachine { get => _stateMachine; }
+
+    public abstract T GetStateID();
 
     public virtual void StateInit(StateMachine<T> stateMachine)
     {

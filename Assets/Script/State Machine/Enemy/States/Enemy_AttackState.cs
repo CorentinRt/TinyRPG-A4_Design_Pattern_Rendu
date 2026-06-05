@@ -1,5 +1,10 @@
 public class Enemy_AttackState : Enemy_GenericState
 {
+    public override EnemieStates GetStateID()
+    {
+        return EnemieStates.Attack;
+    }
+
 
     public override void StateEnter(EnemieStates previousState)
     {

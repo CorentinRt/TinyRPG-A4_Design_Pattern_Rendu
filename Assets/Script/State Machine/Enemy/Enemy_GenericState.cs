@@ -1,6 +1,13 @@
 public class Enemy_GenericState : GenericState<EnemieStates>
 {
     protected Enemy_StateMachine _enemyStateMachine;
+
+    public override EnemieStates GetStateID()
+    {
+        return EnemieStates.None;
+    }
+
+
     public override void StateInit(StateMachine<EnemieStates> stateMachine)
     {
         _enemyStateMachine = (Enemy_StateMachine)stateMachine;

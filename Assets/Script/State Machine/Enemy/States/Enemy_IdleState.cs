@@ -1,5 +1,9 @@
 public class Enemy_IdleState : Enemy_GenericState
 {
+    public override EnemieStates GetStateID()
+    {
+        return EnemieStates.Idle;
+    }
     public override void StateEnter(EnemieStates previousState)
     {
         base.StateEnter(previousState);

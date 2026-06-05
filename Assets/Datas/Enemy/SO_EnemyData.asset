@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b055158b74b939e4197afdded8a95512, type: 3}
   m_Name: SO_EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::SO_EnemyData
-  radiusExploration: 50
+  radiusExploration: 0.1
   timeBeforeNextMove: 5
   MinDistAttackPlayer: 5
   _attackParams:
