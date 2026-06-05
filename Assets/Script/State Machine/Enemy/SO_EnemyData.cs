@@ -6,7 +6,8 @@ public class SO_EnemyData : ScriptableObject
 {
 
     [Header("Movement")]
-    [Range(0, 100)] public float radiusExploration = 50;
+    [Range(0, 50)] public float radiusMaxExploration = 50;
+    [Range(0, 50)] public float radiusMinExploration = 50;
     [Range(0, 100)] public float timeBeforeNextMove = 5;
     [Range(0, 10)] public float MinDistAttackPlayer = 5;
 

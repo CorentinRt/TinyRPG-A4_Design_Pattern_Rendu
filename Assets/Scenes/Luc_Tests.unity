@@ -2512,17 +2512,22 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8836615
+      value: 0.88606757
       objectReference: {fileID: 0}
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0037902594
+      value: -0.021025777
       objectReference: {fileID: 0}
     - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_Name
       value: Minion (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8018,17 +8023,22 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8836438
+      value: 0.8860657
       objectReference: {fileID: 0}
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0036767721
+      value: -0.021025896
       objectReference: {fileID: 0}
     - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_Name
       value: Minion (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14539,7 +14549,7 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8837912
+      value: 0.8860657
       objectReference: {fileID: 0}
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
@@ -14549,7 +14559,7 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0047329664
+      value: -0.021025896
       objectReference: {fileID: 0}
     - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
@@ -14768,17 +14778,22 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8837919
+      value: 0.8860657
       objectReference: {fileID: 0}
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.004737735
+      value: -0.021025896
       objectReference: {fileID: 0}
     - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_Name
       value: Minion (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17049,17 +17064,22 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8836281
+      value: 0.8860657
       objectReference: {fileID: 0}
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0035641193
+      value: -0.021025896
       objectReference: {fileID: 0}
     - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_Name
       value: Minion (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18423,7 +18443,7 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8838002
+      value: 0.88606757
       objectReference: {fileID: 0}
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
@@ -18433,12 +18453,17 @@ PrefabInstance:
     - target: {fileID: 6994337079237014369, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0047837496
+      value: -0.021025658
       objectReference: {fileID: 0}
     - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
         type: 3}
       propertyPath: m_Name
       value: Minion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229650508908270049, guid: 2f435002044c4cf47af8ea30da03d434,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

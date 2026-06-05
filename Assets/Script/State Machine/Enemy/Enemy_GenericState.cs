@@ -31,12 +31,11 @@ public class Enemy_GenericState : GenericState<EnemieStates>
     public override void StateUpdate(float deltaTime)
     {
         base.StateUpdate(deltaTime);
-        TryAttack();
     }
 
-    protected void TryAttack()
+    protected void SearchPlayer()
     {
-        //float distPlayerEnemy = Vector3.Distance(_enemyStateMachine.Player.transform.position, _enemyStateMachine.transform.position);
+        //float distPlayerEnemy = Vector3.Distance(_enemyStateMachine., _enemyStateMachine.transform.position);
         //if (_enemyStateMachine.Data.MinDistAttackPlayer > distPlayerEnemy)
         //StateMachine.ChangeState(EnemieStates.Attack);
     }
