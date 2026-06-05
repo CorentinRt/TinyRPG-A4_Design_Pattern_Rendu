@@ -28,15 +28,17 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
     {
         SetAttackEnable(true);
 
+        SetAttackEnable(_awakeEnable);
+
     }
 
     public void SetAttackEnable(bool enable)
     {
-        _awakeEnable = enable;
+        _attackEnabled = enable;
     }
     public bool IsAttackEnabled()
     {
-        return _awakeEnable;
+        return _attackEnabled;
     }
 
     protected virtual bool IsInCooldown()
@@ -55,6 +57,7 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
         return _isAttacking;
     }
 
+
     public override void TriggerNewAttack(AttackParams attackParams, int index)
     {
         if (IsInCooldown() || IsAttacking() || !IsAttackEnabled())
@@ -67,6 +70,13 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
         _lastAttackTime = Time.time;
 
         StartAttackDurationCoroutine(attackParams);
+
+        Command_Attack commandAttack = new Command_Attack(this, _rb, attackParams, index, _anchorDirection.forward);
+
+        if (PlayerCommandRewind.Exist)
+        {
+            PlayerCommandRewind.Instance.RegisterCommand(commandAttack);
+        }
     }
 
     private void ApplyImpuleForce(float impulseForce)

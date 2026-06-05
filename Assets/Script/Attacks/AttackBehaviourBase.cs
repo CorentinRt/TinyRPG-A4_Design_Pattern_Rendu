@@ -38,10 +38,13 @@ public class AttackBehaviourBase : MonoBehaviour
 
     private AttackParams _lastTriggeredAttackParams;
 
+    private int _lastTriggeredAttackIndex;
+
     #endregion
 
     #region Properties
     public AttackParams LastTriggeredAttackParams => _lastTriggeredAttackParams;
+    public int LastTriggeredAttackIndex => _lastTriggeredAttackIndex;
 
     #endregion
 
@@ -78,8 +81,15 @@ public class AttackBehaviourBase : MonoBehaviour
     {
         _lastTriggeredAttackParams = attackParams;
 
+        _lastTriggeredAttackIndex = index;
+
         EnableAttackIndexCollider(index);
 
+        onTriggerNewAttack?.Invoke(attackParams, index);
+    }
+
+    public void NotifyAttackOnly(AttackParams attackParams, int index)
+    {
         onTriggerNewAttack?.Invoke(attackParams, index);
     }
 

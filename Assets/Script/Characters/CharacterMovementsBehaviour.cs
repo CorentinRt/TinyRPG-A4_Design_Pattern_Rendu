@@ -56,9 +56,13 @@ public class CharacterMovementsBehaviour : MonoBehaviour
         tempVelocity = Vector2.ClampMagnitude(tempVelocity, maxVelocity);
         _rb.linearVelocity = new Vector3(tempVelocity.x, 0f, tempVelocity.y);
 
-        onVelocityChange?.Invoke(_rb.linearVelocity);
 
-        UpdateAnchorDirectionRotation();
+        if (movementsEnabled)
+        {
+            onVelocityChange?.Invoke(_rb.linearVelocity);
+            
+            UpdateAnchorDirectionRotation();
+        }
     }
 
     public void UpdateAnchorDirectionRotation()
@@ -73,6 +77,11 @@ public class CharacterMovementsBehaviour : MonoBehaviour
         Quaternion finalRotation = Quaternion.Lerp(currentRotation, targetRotation, _rotationMatchDirectionSpeed * Time.deltaTime);
 
         _anchorRotation.rotation = finalRotation;
+    }
+
+    public void SetLinearVelocity(Vector3 velocity)
+    {
+        _rb.linearVelocity = velocity;
     }
 
 }
