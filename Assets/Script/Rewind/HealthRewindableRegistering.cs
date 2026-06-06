@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealthRewindableRegistering : MonoBehaviour
+public class HealthRewindableRegistering : MonoBehaviour
 {
     #region Fields
 
     [Header("Health")]
     [SerializeField] private HealthBehaviour _health;
+    [SerializeField] private RewindCommandEntity _rewind;
 
     #endregion
 
@@ -26,23 +27,17 @@ public class PlayerHealthRewindableRegistering : MonoBehaviour
 
     private void ReceiveOnDie()
     {
-        if (!PlayerController.Exist)
-            return;
-
         Command_Die commandDie = new Command_Die(_health);
 
-        PlayerController.Instance.Rewind.RegisterCommand(commandDie);
+        _rewind.RegisterCommand(commandDie);
     }
 
     private void ReceiveOnHealthChanged(float currentHealth, float amountChanged)
     {
-        if (!PlayerController.Exist)
-            return;
-
         Command_ChangeHealth commandChangeHealth = 
             new Command_ChangeHealth(_health, currentHealth - amountChanged, currentHealth);
 
-        PlayerController.Instance.Rewind.RegisterCommand(commandChangeHealth);
+        _rewind.RegisterCommand(commandChangeHealth);
     }
 
 

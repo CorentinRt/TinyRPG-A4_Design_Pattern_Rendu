@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _stateMachine: {fileID: 2966002695725094474}
+  _mainTransform: {fileID: 4268900357584288713}
 --- !u!1 &3353736508690587733
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +427,7 @@ GameObject:
   - component: {fileID: 9046565977767031624}
   - component: {fileID: 2979251761247913406}
   - component: {fileID: 7347468171085106721}
+  - component: {fileID: 5934269902001237104}
   m_Layer: 0
   m_Name: Actions
   m_TagString: Untagged
@@ -489,6 +491,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a63380ab5006d4ab8dae8c4e670f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewindCommandEntity
+--- !u!114 &5934269902001237104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596430753863400264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a792b469a7cbef42a4aa3c6cd37edd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthRewindableRegistering
+  _health: {fileID: 4323506102092331168}
+  _rewind: {fileID: 7347468171085106721}
 --- !u!1 &9185703701004401451
 GameObject:
   m_ObjectHideFlags: 0

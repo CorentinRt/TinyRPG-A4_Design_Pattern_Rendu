@@ -79,6 +79,16 @@ public class RewindCommandManager : GenericSingleton<RewindCommandManager>
 
         _isRewinding = enable;
 
+        for (int i = 0; i < _rewindCommandEntities.Count; ++i)
+        {
+            RewindCommandEntity entity = _rewindCommandEntities[i];
+
+            if (entity == null)
+                continue;
+
+            entity.SetEnableRewindEntity(enable);
+        }
+
         if (_isRewinding)
         {
             StartRewindCoroutine();

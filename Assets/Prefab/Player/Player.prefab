@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthRewindableRegistering
   _health: {fileID: 1867741483258744941}
+  _rewind: {fileID: 6800047551817240093}
 --- !u!114 &6800047551817240093
 MonoBehaviour:
   m_ObjectHideFlags: 0

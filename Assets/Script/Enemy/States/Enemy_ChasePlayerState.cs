@@ -7,9 +7,18 @@ public class Enemy_ChasePlayerState : Enemy_GenericState
         return EnemieStates.ChasePlayer;
     }
 
+    public override void StateEnter(EnemieStates previousState)
+    {
+        base.StateEnter(previousState);
+
+        _enemyStateMachine.Rewind.onSetEnableRewindEntity += OnReceiveSetEnableRewind;
+    }
+
     public override void StateExit(EnemieStates nextState)
     {
         base.StateExit(nextState);
+
+        _enemyStateMachine.Rewind.onSetEnableRewindEntity -= OnReceiveSetEnableRewind;
 
     }
 
@@ -36,5 +45,14 @@ public class Enemy_ChasePlayerState : Enemy_GenericState
         if (distEnemyPlayer > _enemyStateMachine.Data.DistanceLooseSight)
             StateMachine.ChangeState(EnemieStates.Idle);
 
+    }
+
+
+    private void OnReceiveSetEnableRewind(bool enable)
+    {
+        if (!enable)
+            return;
+
+        StateMachine.ChangeState(EnemieStates.Rewind);
     }
 }

@@ -13,6 +13,15 @@ public class Enemy_MoveState : Enemy_GenericState
     {
         base.StateEnter(previousState);
         _enemyStateMachine.MovementBehaviour.Move();
+
+        _enemyStateMachine.Rewind.onSetEnableRewindEntity += OnReceiveSetEnableRewind;
+    }
+
+    public override void StateExit(EnemieStates nextState)
+    {
+        base.StateExit(nextState);
+
+        _enemyStateMachine.Rewind.onSetEnableRewindEntity -= OnReceiveSetEnableRewind;
     }
 
     public override void StateUpdate(float deltaTime)
@@ -22,5 +31,14 @@ public class Enemy_MoveState : Enemy_GenericState
             StateMachine.ChangeState(EnemieStates.Idle);
 
         SearchPlayer();
+    }
+
+
+    private void OnReceiveSetEnableRewind(bool enable)
+    {
+        if (!enable)
+            return;
+
+        StateMachine.ChangeState(EnemieStates.Rewind);
     }
 }

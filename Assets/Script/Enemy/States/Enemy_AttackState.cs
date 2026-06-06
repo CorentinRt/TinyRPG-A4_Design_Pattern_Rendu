@@ -17,7 +17,12 @@ public class Enemy_AttackState : Enemy_GenericState
             return;
         }
 
-        _enemyStateMachine.AttackBehaviour.TriggerNewAttack(_enemyStateMachine.Data.AttackParams[0], 0);
+        AttackParams attackParam = _enemyStateMachine.Data.AttackParams[0];
+        _enemyStateMachine.AttackBehaviour.TriggerNewAttack(attackParam, 0);
+
+        Command_Attack commandAttack = new Command_Attack(_enemyStateMachine.AttackBehaviour, null, attackParam, 0, UnityEngine.Vector3.zero);
+
+        _enemyStateMachine.Rewind.RegisterCommand(commandAttack);
 
         StateMachine.ChangeState(previousState);
     }

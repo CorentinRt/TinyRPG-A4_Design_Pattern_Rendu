@@ -9,6 +9,8 @@ public class Enemy_IdleState : Enemy_GenericState
         base.StateEnter(previousState);
         _enemyStateMachine.MovementBehaviour.Idle();
         _enemyStateMachine.MovementBehaviour.onMove += StartMove;
+
+        _enemyStateMachine.Rewind.onSetEnableRewindEntity += OnReceiveSetEnableRewind;
     }
 
     public override void StateUpdate(float deltaTime)
@@ -21,10 +23,21 @@ public class Enemy_IdleState : Enemy_GenericState
     {
         base.StateExit(nextState);
         _enemyStateMachine.MovementBehaviour.onMove -= StartMove;
+
+        _enemyStateMachine.Rewind.onSetEnableRewindEntity -= OnReceiveSetEnableRewind;
     }
 
     public void StartMove()
     {
         StateMachine.ChangeState(EnemieStates.Move);
+    }
+
+
+    private void OnReceiveSetEnableRewind(bool enable)
+    {
+        if (!enable)
+            return;
+
+        StateMachine.ChangeState(EnemieStates.Rewind);
     }
 }
