@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c1ff73d6cb4e744a34c246e7c3a2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CommandRewindManager
-  _datas: {fileID: 11400000, guid: 6c6ce1b10d4e59f4fb2cea055f405fdb, type: 2}
+  _datas: {fileID: 11400000, guid: d82550043125f7748a00c255dc07b2f7, type: 2}

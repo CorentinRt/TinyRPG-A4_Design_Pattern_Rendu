@@ -10,7 +10,7 @@ public class RewindCommandManager : GenericSingleton<RewindCommandManager>
     #region Fields
 
     [Header("Datas")]
-    [SerializeField] private SO_PlayerDatas _datas;
+    [SerializeField] private SO_RewindDatas _datas;
 
     private bool _isRewinding;
 
