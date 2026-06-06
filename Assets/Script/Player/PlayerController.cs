@@ -17,16 +17,21 @@ public class PlayerController : GenericSingleton<PlayerController>
     [Header("Behaviours")]
     [SerializeField] private PlayerMovementsBehaviour _movements;
     [SerializeField] private PlayerAttackBehaviour _attack;
-    [SerializeField] private PlayerCommandRewind _rewind;
+    [SerializeField] private RewindCommandEntity _rewind;
 
     [Header("Health")]
     [SerializeField] private HealthBehaviour _health;
 
     #endregion
 
+    #region Properties
+    public RewindCommandEntity Rewind => _rewind;
+
+    #endregion
+
     public event Action<Vector2> onMoveInput;
 
-    private void Awake()
+    protected override void Awake()
     {
         // Move
         _moveInput.action.started += OnReceiveMoveInput;
@@ -38,7 +43,7 @@ public class PlayerController : GenericSingleton<PlayerController>
 
         // Rewind
         _rewindInput.action.started += OnReceiveRewindInput;
-        _rewind.onSetEnableRewind += OnReceiveSetEnableRewind;
+        _rewind.onSetEnableRewindEntity += OnReceiveSetEnableRewind;
 
         // Heath
         _health.onDie += OnReceivePlayerDie;
@@ -58,7 +63,7 @@ public class PlayerController : GenericSingleton<PlayerController>
 
         // Rewind
         _rewindInput.action.started -= OnReceiveRewindInput;
-        _rewind.onSetEnableRewind -= OnReceiveSetEnableRewind;
+        _rewind.onSetEnableRewindEntity -= OnReceiveSetEnableRewind;
 
         // Heath
         _health.onDie -= OnReceivePlayerDie;
@@ -125,7 +130,21 @@ public class PlayerController : GenericSingleton<PlayerController>
         {
             if (!_health.IsDead())
             {
-                _rewind.SetEnableRewind(!_rewind.IsRewindEnabled());
+                if (RewindCommandManager.Exist)
+                {
+                    if (RewindCommandManager.Instance.IsRewindEnabled())
+                    {
+                        RewindCommandManager.Instance.StopRewind();
+                    }
+                    else
+                    {
+                        RewindCommandManager.Instance.StartRewind();
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Error : Try to enable rewind manager but singleton of rewind command manager not found ! Nothing will happen !", this);
+                }
             }
         }
         else
@@ -145,7 +164,7 @@ public class PlayerController : GenericSingleton<PlayerController>
         UpdateMovementsEnabledState();
         UpdateAttackEnabledState();
 
-        _rewind.StartRewindWithDelay(_datas.OnDeathRewindDelay);
+        RewindCommandManager.Instance.StartRewindWithDelay(_datas.OnDeathRewindDelay);
     }
 
     private void OnReceivePlayerRevive()

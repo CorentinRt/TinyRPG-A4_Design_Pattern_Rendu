@@ -93,9 +93,9 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
 
         Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, AnchorRotation, beforeMoveParams, afterMoveParams);
 
-        if (PlayerCommandRewind.Exist)
+        if (PlayerController.Exist)
         {
-            PlayerCommandRewind.Instance.RegisterCommand(commandMove);
+            PlayerController.Instance.Rewind.RegisterCommand(commandMove);
         }
     }
 

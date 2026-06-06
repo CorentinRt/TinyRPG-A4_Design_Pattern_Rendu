@@ -51,4 +51,14 @@ public class HealthBehaviourProxy : MonoBehaviour, IHealth
     {
         _proxy.SetHealth(health);
     }
+
+    public void SetInvincible(bool invincible)
+    {
+        _proxy.SetInvincible(invincible);
+    }
+
+    public bool GetIsInvincible()
+    {
+        return _proxy.GetIsInvincible();
+    }
 }

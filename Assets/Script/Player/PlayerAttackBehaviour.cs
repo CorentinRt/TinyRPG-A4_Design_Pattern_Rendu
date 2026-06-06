@@ -73,9 +73,9 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 
         Command_Attack commandAttack = new Command_Attack(this, _rb, attackParams, index, _anchorDirection.forward);
 
-        if (PlayerCommandRewind.Exist)
+        if (PlayerController.Exist)
         {
-            PlayerCommandRewind.Instance.RegisterCommand(commandAttack);
+            PlayerController.Instance.Rewind.RegisterCommand(commandAttack);
         }
     }
 
