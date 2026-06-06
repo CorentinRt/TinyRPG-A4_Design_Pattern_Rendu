@@ -157,6 +157,8 @@ public class PlayerController : GenericSingleton<PlayerController>
     {
         UpdateMovementsEnabledState();
         UpdateAttackEnabledState();
+
+        _health.SetInvincible(enabled);
     }
 
     private void OnReceivePlayerDie()

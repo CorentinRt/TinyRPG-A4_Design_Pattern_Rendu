@@ -7,12 +7,23 @@ public class Enemy_ChasePlayerState : Enemy_GenericState
         return EnemieStates.ChasePlayer;
     }
 
+    public override void StateExit(EnemieStates nextState)
+    {
+        base.StateExit(nextState);
+
+    }
+
     public override void StateUpdate(float deltaTime)
     {
         base.StateUpdate(deltaTime);
-        if (PlayerController.Instance == null) return;
+
+        if (PlayerController.Instance == null)
+            return;
+
+        Vector3 enemyToPlayer = (PlayerController.Instance.transform.position - StateMachine.transform.position).normalized;
+
         //Chase player
-        _enemyStateMachine.MovementBehaviour.MoveTo(PlayerController.Instance.transform.position);
+        _enemyStateMachine.MovementBehaviour.MoveTo(PlayerController.Instance.transform.position - (enemyToPlayer * _enemyStateMachine.Data.DistAttackPlayer / 2f));
 
         //Calculate distance player enemy
         float distEnemyPlayer = Vector3.Distance(PlayerController.Instance.transform.position, StateMachine.transform.position);
