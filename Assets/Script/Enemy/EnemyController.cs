@@ -15,7 +15,6 @@ public class EnemyController : MonoBehaviour
     #endregion
 
 
-
     void Start()
     {
         _stateMachine.InitStateMachine();

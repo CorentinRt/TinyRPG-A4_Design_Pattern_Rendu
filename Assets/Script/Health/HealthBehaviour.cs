@@ -66,8 +66,6 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         if (GetIsInvincible())
             return;
 
-        Debug.Log($"Take damage : {amount}", this);
-
         SetHealth(_currentHealth - amount);
 
         onTakeDamage?.Invoke();

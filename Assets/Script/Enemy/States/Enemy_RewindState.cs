@@ -21,6 +21,8 @@ public class Enemy_RewindState : Enemy_GenericState
         _enemyStateMachine.Agent.enabled = false;
 
         _enemyStateMachine.Rewind.onSetEnableRewindEntity += OnReceiveSetEnableRewind;
+
+        _enemyStateMachine.HealthBehaviour.SetInvincible(true);
     }
 
     public override void StateExit(EnemieStates nextState)
@@ -32,6 +34,8 @@ public class Enemy_RewindState : Enemy_GenericState
         _enemyStateMachine.MovementBehaviour.MoveTo(StateMachine.transform.position);
 
         _enemyStateMachine.Rewind.onSetEnableRewindEntity -= OnReceiveSetEnableRewind;
+
+        _enemyStateMachine.HealthBehaviour.SetInvincible(false);
     }
 
     public override void StateUpdate(float deltaTime)

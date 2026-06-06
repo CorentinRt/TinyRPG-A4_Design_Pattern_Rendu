@@ -51,7 +51,7 @@ public class AttackBehaviourBase : MonoBehaviour
 
     public event Action<AttackParams, int> onTriggerNewAttack;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         for (int i = 0; i < _hitBoxesTriggersListeners.Count; ++i)
         {
@@ -60,7 +60,7 @@ public class AttackBehaviourBase : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         for (int i = 0; i < _hitBoxesTriggersListeners.Count; ++i)
         {

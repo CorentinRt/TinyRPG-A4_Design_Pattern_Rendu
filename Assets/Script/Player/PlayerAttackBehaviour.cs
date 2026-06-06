@@ -24,9 +24,9 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
-        SetAttackEnable(true);
+        base.Awake();
 
         SetAttackEnable(_awakeEnable);
 
