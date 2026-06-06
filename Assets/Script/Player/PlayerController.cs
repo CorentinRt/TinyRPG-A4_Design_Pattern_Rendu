@@ -25,6 +25,7 @@ public class PlayerController : GenericSingleton<PlayerController>
     #endregion
 
     #region Properties
+    public HealthBehaviour Health => _health;
     public RewindCommandEntity Rewind => _rewind;
 
     #endregion
