@@ -20,4 +20,8 @@ public interface IHealth
     public abstract float GetHealth();
 
     public abstract void SetHealth(float health, bool notifyEvent = true);
+
+    public abstract void SetInvincible(bool invincible);
+
+    public abstract bool GetIsInvincible();
 }

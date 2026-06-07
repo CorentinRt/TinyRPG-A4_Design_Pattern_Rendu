@@ -9,32 +9,42 @@ public enum EnemieStates
     ChasePlayer,
     Attack,
     TakeDamage,
-    Dead
+    Dead,
+    Rewind
 }
 
 public class Enemy_StateMachine : StateMachine<EnemieStates>
 {
     #region Fields
+    [Header("Datas")]
     [SerializeField] private SO_EnemyData _data;
-    [SerializeField] private HealthBehaviour _healthBehaviour;
+
+    [Header("Navigation")]
     [SerializeField] private NavMeshAgent _agent;
+
+    [Header("Behaviours")]
+    [SerializeField] private HealthBehaviour _healthBehaviour;
     [SerializeField] private Enemy_MovementBehaviour _movementBehaviour;
     [SerializeField] private Enemy_AttackBehaviour _attackBehaviour;
+    [SerializeField] private RewindCommandEntity _rewind;
 
 
     #endregion
+
     #region Properties
     public SO_EnemyData Data { get => _data; }
     public NavMeshAgent Agent { get => _agent; }
     public HealthBehaviour HealthBehaviour { get => _healthBehaviour; }
     public Enemy_MovementBehaviour MovementBehaviour { get => _movementBehaviour; }
     public Enemy_AttackBehaviour AttackBehaviour { get => _attackBehaviour; }
+    public RewindCommandEntity Rewind => _rewind;
 
     #endregion
 
     public override void InitStateMachine()
     {
         base.InitStateMachine();
+
         ChangeState(EnemieStates.Idle);
     }
 
@@ -65,16 +75,20 @@ public class Enemy_StateMachine : StateMachine<EnemieStates>
             case (EnemieStates.ChasePlayer):
                 state = new Enemy_ChasePlayerState();
                 break;
+            case (EnemieStates.Rewind):
+                state = new Enemy_RewindState();
+                break;
             default:
-                Debug.LogError("Missing state class in Enemy state machine");
+                Debug.LogError("ERROR : Missing state class in Enemy state machine");
                 break;
         }
 
         if (state == null)
         {
-            Debug.LogError("State doesn't exist");
+            Debug.LogError(" ERROR : State doesn't exist");
             return;
         }
+
         AddState(state);
     }
 }

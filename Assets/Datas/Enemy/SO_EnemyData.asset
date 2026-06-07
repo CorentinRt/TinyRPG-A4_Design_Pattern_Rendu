@@ -22,6 +22,6 @@ MonoBehaviour:
   - _duration: 2
     _cooldown: 1
     _comboBuffer: 0
-    _damages: 5
+    _damages: 15
     _canBeBlocked: 0
     _impulseForce: 0

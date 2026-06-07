@@ -29,14 +29,20 @@ public class Command_Attack : Command
 
     public override void Do()
     {
-        _rb.AddForce(_impulseDir * _attackParam.ImpulseForce, ForceMode.Impulse);
+        if (_rb  != null)
+        {
+            _rb.AddForce(_impulseDir * _attackParam.ImpulseForce, ForceMode.Impulse);
+        }
 
         _attack.NotifyAttackOnly(_attackParam, _attackIndex);   // only notify here to avoid collision to trigger damages again but to keep animation attack
     }
 
     public override void Undo()
     {
-        _rb.AddForce(-_impulseDir * _attackParam.ImpulseForce, ForceMode.Impulse);
+        if (_rb != null)
+        {
+            _rb.AddForce(-_impulseDir * _attackParam.ImpulseForce, ForceMode.Impulse);
+        }
 
         _attack.NotifyAttackOnly(_attackParam, _attackIndex);   // only notify event here to avoid collision to trigger damages again but to keep animation attack
     }

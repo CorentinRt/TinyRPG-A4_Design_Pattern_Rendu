@@ -2,30 +2,43 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
+public class RewindCommandManager : GenericSingleton<RewindCommandManager>
 {
     #region Fields
 
     [Header("Datas")]
-    [SerializeField] private SO_PlayerDatas _datas;
+    [SerializeField] private SO_RewindDatas _datas;
 
-    private List<Command> _commands = new(200); // 200 to set a init length and optimize a bit the resize of the list
-
-    private bool _isEnabled;
+    private bool _isRewinding;
 
     private float _currentTimeAccumulated;
 
     private Coroutine _rewindCoroutine;
     private Coroutine _rewindWithDelayCoroutine;
 
+    private List<RewindCommandEntity> _rewindCommandEntities = new(10);
+
 
     #endregion
 
-    public event Action<bool> onSetEnableRewind;
+    public event Action onStartRewind;
+    public event Action onStopRewind;
 
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        InitCommandRewindManager();
+    }
+
+    public void InitCommandRewindManager()  // public cause may be called through the GameManager in a bigger project
+    {
+        _rewindCommandEntities = FindObjectsByType<RewindCommandEntity>(FindObjectsSortMode.None).ToList();
+    }
 
     private void Update()
     {
@@ -35,58 +48,58 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
 
     private void UpdateTimeAccumulated(float deltaTime)
     {
-        if (_isEnabled)
+        if (_isRewinding)
             return;
             
         _currentTimeAccumulated += deltaTime;
 
         if (_currentTimeAccumulated > _datas.MaxFreeTimeBeforeRewind)
         {
-            SetEnableRewind(true);  // auto rewind
+            SetRewindState(true);  // auto rewind
             Debug.Log("Auto rewind Triggered !", this);
         }
     }
 
-    public void RegisterCommand(Command command)
+    public float GetCurrentTimeAccumulated()
     {
-        if (command == null || _isEnabled)
-            return;
-
-        command.TimeRegistered = _currentTimeAccumulated;
-
-        _commands.Add(command);
-    }
-
-    public void ClearCommands()
-    {
-        _commands.Clear();
+        return _currentTimeAccumulated;
     }
 
     [Button]
-    private void DebugEnableRewind() => SetEnableRewind(true);
+    public void StartRewind() => SetRewindState(true);
     [Button]
-    private void DebugDisableRewind() => SetEnableRewind(false);
-    public void SetEnableRewind(bool enable)
+    public void StopRewind() => SetRewindState(false);
+    private void SetRewindState(bool enable)
     {
-        if (_isEnabled == enable)
+        if (_isRewinding == enable)
             return;
 
         if (enable && _currentTimeAccumulated < _datas.MinAccumulatedTimeToRewind)
             return;
 
-        _isEnabled = enable;
+        _isRewinding = enable;
 
-        if (_isEnabled)
+        for (int i = 0; i < _rewindCommandEntities.Count; ++i)
         {
-            StartRewindCoroutine();
+            RewindCommandEntity entity = _rewindCommandEntities[i];
+
+            if (entity == null)
+                continue;
+
+            entity.SetEnableRewindEntity(enable);
         }
 
-        onSetEnableRewind?.Invoke(_isEnabled);
+        if (_isRewinding)
+        {
+            StartRewindCoroutine();
+
+            onStartRewind?.Invoke();
+        }
     }
 
     public bool IsRewindEnabled()
     {
-        return _isEnabled;
+        return _isRewinding;
     }
 
     private void StartRewindCoroutine()
@@ -105,30 +118,16 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
     }
     private IEnumerator RewindCoroutine()
     {
-        while (_isEnabled && _commands.Count > 0)
+        while (_isRewinding && _currentTimeAccumulated > 0f)
         {
-            int currentIndex = _commands.Count - 1;
-
-            while (currentIndex >= 0 && currentIndex < _commands.Count)
+            for (int i = 0; i < _rewindCommandEntities.Count; ++i)
             {
-                Command command = _commands[currentIndex];
+                RewindCommandEntity rewindEntity = _rewindCommandEntities[i];
 
-                if (command == null)
-                {
-                    _commands.RemoveAt(currentIndex);
-                    --currentIndex;
+                if (rewindEntity == null)
                     continue;
-                }
 
-                if (_currentTimeAccumulated <= command.TimeRegistered)
-                {
-                    command.Undo();
-                    _commands.RemoveAt(currentIndex);
-                    --currentIndex;
-                    continue;
-                }
-
-                break;
+                rewindEntity.RewindAllCommandsAfterGivenTime(_currentTimeAccumulated);
             }
 
             _currentTimeAccumulated -= Time.deltaTime * _datas.RewindSpeed;
@@ -136,7 +135,14 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
             yield return null;
         }
 
-        SetEnableRewind(false);
+        if (_currentTimeAccumulated < 0f)
+        {
+            _currentTimeAccumulated = 0f;
+        }
+
+        SetRewindState(false);
+
+        onStopRewind?.Invoke();
     }
 
     public void StartRewindWithDelay(float delay)
@@ -164,6 +170,6 @@ public class PlayerCommandRewind : GenericSingleton<PlayerCommandRewind>
     {
         yield return new WaitForSeconds(delay);
 
-        SetEnableRewind(true);
+        SetRewindState(true);
     }
 }

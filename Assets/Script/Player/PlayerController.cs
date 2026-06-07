@@ -17,28 +17,39 @@ public class PlayerController : GenericSingleton<PlayerController>
     [Header("Behaviours")]
     [SerializeField] private PlayerMovementsBehaviour _movements;
     [SerializeField] private PlayerAttackBehaviour _attack;
-    [SerializeField] private PlayerCommandRewind _rewind;
+    [SerializeField] private RewindCommandEntity _rewind;
 
     [Header("Health")]
     [SerializeField] private HealthBehaviour _health;
+
+    [Header("RigidBody")]
+    [SerializeField] private Rigidbody _rb;
+
+    #endregion
+
+    #region Properties
+    public HealthBehaviour Health => _health;
+    public RewindCommandEntity Rewind => _rewind;
 
     #endregion
 
     public event Action<Vector2> onMoveInput;
 
-    private void Awake()
+    protected override void Awake()
     {
         // Move
         _moveInput.action.started += OnReceiveMoveInput;
         _moveInput.action.performed += OnReceiveMoveInput;
         _moveInput.action.canceled += OnReceiveMoveInput;
+        _movements.onPlayerApplyMove += OnReceivePlayerApplyMove;
 
         // Attack
         _attackInput.action.started += OnReceiveAttackInput;
+        _attack.onPlayerAttack += OnReceivePlayerAttack;
 
         // Rewind
         _rewindInput.action.started += OnReceiveRewindInput;
-        _rewind.onSetEnableRewind += OnReceiveSetEnableRewind;
+        _rewind.onSetEnableRewindEntity += OnReceiveSetEnableRewind;
 
         // Heath
         _health.onDie += OnReceivePlayerDie;
@@ -52,13 +63,15 @@ public class PlayerController : GenericSingleton<PlayerController>
         _moveInput.action.started -= OnReceiveMoveInput;
         _moveInput.action.performed -= OnReceiveMoveInput;
         _moveInput.action.canceled -= OnReceiveMoveInput;
+        _movements.onPlayerApplyMove -= OnReceivePlayerApplyMove;
 
         // Attack
         _attackInput.action.started -= OnReceiveAttackInput;
+        _attack.onPlayerAttack -= OnReceivePlayerAttack;
 
         // Rewind
         _rewindInput.action.started -= OnReceiveRewindInput;
-        _rewind.onSetEnableRewind -= OnReceiveSetEnableRewind;
+        _rewind.onSetEnableRewindEntity -= OnReceiveSetEnableRewind;
 
         // Heath
         _health.onDie -= OnReceivePlayerDie;
@@ -125,7 +138,21 @@ public class PlayerController : GenericSingleton<PlayerController>
         {
             if (!_health.IsDead())
             {
-                _rewind.SetEnableRewind(!_rewind.IsRewindEnabled());
+                if (RewindCommandManager.Exist)
+                {
+                    if (RewindCommandManager.Instance.IsRewindEnabled())
+                    {
+                        RewindCommandManager.Instance.StopRewind();
+                    }
+                    else
+                    {
+                        RewindCommandManager.Instance.StartRewind();
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Error : Try to enable rewind manager but singleton of rewind command manager not found ! Nothing will happen !", this);
+                }
             }
         }
         else
@@ -138,6 +165,8 @@ public class PlayerController : GenericSingleton<PlayerController>
     {
         UpdateMovementsEnabledState();
         UpdateAttackEnabledState();
+
+        _health.SetInvincible(enabled);
     }
 
     private void OnReceivePlayerDie()
@@ -145,7 +174,7 @@ public class PlayerController : GenericSingleton<PlayerController>
         UpdateMovementsEnabledState();
         UpdateAttackEnabledState();
 
-        _rewind.StartRewindWithDelay(_datas.OnDeathRewindDelay);
+        RewindCommandManager.Instance.StartRewindWithDelay(_datas.OnDeathRewindDelay);
     }
 
     private void OnReceivePlayerRevive()
@@ -184,5 +213,20 @@ public class PlayerController : GenericSingleton<PlayerController>
             return true;
 
         return !_rewind.IsRewindEnabled();
+    }
+
+
+    private void OnReceivePlayerAttack(AttackParams attackParams, int index, Vector3 forward)
+    {
+        Command_Attack commandAttack = new Command_Attack(_attack, _rb, attackParams, index, forward);
+
+        _rewind.RegisterCommand(commandAttack);
+    }
+
+    private void OnReceivePlayerApplyMove(Command_MoveRigidbody.MoveRigidbody_Params beforeMoveParams, Command_MoveRigidbody.MoveRigidbody_Params afterMoveParams, Transform anchorRotation)
+    {
+        Command_MoveRigidbody commandMove = new Command_MoveRigidbody(_rb, anchorRotation, beforeMoveParams, afterMoveParams);
+
+        _rewind.RegisterCommand(commandMove);
     }
 }

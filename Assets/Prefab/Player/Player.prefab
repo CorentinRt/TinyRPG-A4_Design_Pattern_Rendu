@@ -190,8 +190,9 @@ MonoBehaviour:
     type: 3}
   _movements: {fileID: 2928025331059148393}
   _attack: {fileID: 8624767364342676720}
-  _rewind: {fileID: 8072416519539382671}
+  _rewind: {fileID: 6800047551817240093}
   _health: {fileID: 1867741483258744941}
+  _rb: {fileID: 9115170152858762924}
 --- !u!1 &1558698249687060746
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,8 +328,8 @@ GameObject:
   - component: {fileID: 4907740914890380782}
   - component: {fileID: 2928025331059148393}
   - component: {fileID: 8624767364342676720}
-  - component: {fileID: 8072416519539382671}
   - component: {fileID: 4278915524068837840}
+  - component: {fileID: 6800047551817240093}
   m_Layer: 0
   m_Name: Actions
   m_TagString: Untagged
@@ -387,19 +388,6 @@ MonoBehaviour:
   _awakeEnable: 1
   _rb: {fileID: 9115170152858762924}
   _anchorDirection: {fileID: 5410832363735725558}
---- !u!114 &8072416519539382671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5955739093765788549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854c8aabc7096dd47acbcfea16aa1009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCommandRewind
-  _datas: {fileID: 11400000, guid: 6c6ce1b10d4e59f4fb2cea055f405fdb, type: 2}
 --- !u!114 &4278915524068837840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +401,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthRewindableRegistering
   _health: {fileID: 1867741483258744941}
+  _rewind: {fileID: 6800047551817240093}
+--- !u!114 &6800047551817240093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5955739093765788549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a63380ab5006d4ab8dae8c4e670f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RewindCommandEntity
 --- !u!1 &6331558144665418028
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,7 +589,7 @@ BoxCollider:
     m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

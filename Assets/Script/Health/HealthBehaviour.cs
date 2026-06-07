@@ -15,6 +15,7 @@ public class HealthBehaviour : MonoBehaviour, IHealth
     protected float _currentHealth;
     protected float _maxHealth;
     private bool _isDead;
+    private bool _isInvincible;
 
     #endregion
 
@@ -62,6 +63,9 @@ public class HealthBehaviour : MonoBehaviour, IHealth
 
     public void Damage(float amount)
     {
+        if (GetIsInvincible())
+            return;
+
         SetHealth(_currentHealth - amount);
 
         onTakeDamage?.Invoke();
@@ -126,5 +130,15 @@ public class HealthBehaviour : MonoBehaviour, IHealth
         {
             Die();
         }
+    }
+
+    public void SetInvincible(bool invincible)
+    {
+        _isInvincible = invincible;
+    }
+
+    public bool GetIsInvincible()
+    {
+        return _isInvincible;
     }
 }

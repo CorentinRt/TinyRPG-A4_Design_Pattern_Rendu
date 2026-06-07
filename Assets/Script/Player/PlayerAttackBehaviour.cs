@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -24,9 +25,11 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 
     #endregion
 
-    private void Awake()
+    public event Action<AttackParams, int, Vector3> onPlayerAttack;
+
+    protected override void Awake()
     {
-        SetAttackEnable(true);
+        base.Awake();
 
         SetAttackEnable(_awakeEnable);
 
@@ -71,12 +74,7 @@ public class PlayerAttackBehaviour : AttackBehaviourBase
 
         StartAttackDurationCoroutine(attackParams);
 
-        Command_Attack commandAttack = new Command_Attack(this, _rb, attackParams, index, _anchorDirection.forward);
-
-        if (PlayerCommandRewind.Exist)
-        {
-            PlayerCommandRewind.Instance.RegisterCommand(commandAttack);
-        }
+        onPlayerAttack?.Invoke(attackParams, index, _anchorDirection.forward);
     }
 
     private void ApplyImpuleForce(float impulseForce)
