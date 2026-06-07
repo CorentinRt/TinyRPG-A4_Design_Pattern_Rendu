@@ -22,6 +22,9 @@ public class PlayerController : GenericSingleton<PlayerController>
     [Header("Health")]
     [SerializeField] private HealthBehaviour _health;
 
+    [Header("RigidBody")]
+    [SerializeField] private Rigidbody _rb;
+
     #endregion
 
     #region Properties
@@ -38,9 +41,11 @@ public class PlayerController : GenericSingleton<PlayerController>
         _moveInput.action.started += OnReceiveMoveInput;
         _moveInput.action.performed += OnReceiveMoveInput;
         _moveInput.action.canceled += OnReceiveMoveInput;
+        _movements.onPlayerApplyMove += OnReceivePlayerApplyMove;
 
         // Attack
         _attackInput.action.started += OnReceiveAttackInput;
+        _attack.onPlayerAttack += OnReceivePlayerAttack;
 
         // Rewind
         _rewindInput.action.started += OnReceiveRewindInput;
@@ -58,9 +63,11 @@ public class PlayerController : GenericSingleton<PlayerController>
         _moveInput.action.started -= OnReceiveMoveInput;
         _moveInput.action.performed -= OnReceiveMoveInput;
         _moveInput.action.canceled -= OnReceiveMoveInput;
+        _movements.onPlayerApplyMove -= OnReceivePlayerApplyMove;
 
         // Attack
         _attackInput.action.started -= OnReceiveAttackInput;
+        _attack.onPlayerAttack -= OnReceivePlayerAttack;
 
         // Rewind
         _rewindInput.action.started -= OnReceiveRewindInput;
@@ -206,5 +213,20 @@ public class PlayerController : GenericSingleton<PlayerController>
             return true;
 
         return !_rewind.IsRewindEnabled();
+    }
+
+
+    private void OnReceivePlayerAttack(AttackParams attackParams, int index, Vector3 forward)
+    {
+        Command_Attack commandAttack = new Command_Attack(_attack, _rb, attackParams, index, forward);
+
+        _rewind.RegisterCommand(commandAttack);
+    }
+
+    private void OnReceivePlayerApplyMove(Command_MoveRigidbody.MoveRigidbody_Params beforeMoveParams, Command_MoveRigidbody.MoveRigidbody_Params afterMoveParams, Transform anchorRotation)
+    {
+        Command_MoveRigidbody commandMove = new Command_MoveRigidbody(_rb, anchorRotation, beforeMoveParams, afterMoveParams);
+
+        _rewind.RegisterCommand(commandMove);
     }
 }

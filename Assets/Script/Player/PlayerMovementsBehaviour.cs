@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using UnityEngine;
 using static Command_MoveRigidbody;
 
@@ -18,6 +19,8 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
     private bool _isMovementsEnabled;
 
     #endregion
+
+    public event Action<MoveRigidbody_Params, MoveRigidbody_Params, Transform> onPlayerApplyMove;
 
 
     private void Start()
@@ -91,12 +94,7 @@ public class PlayerMovementsBehaviour : CharacterMovementsBehaviour
         afterMoveParams.AngularVelocity = RigidBody.angularVelocity;
         afterMoveParams.VisualAnchorRotation = AnchorRotation.rotation;
 
-        Command_MoveRigidbody commandMove = new Command_MoveRigidbody(RigidBody, AnchorRotation, beforeMoveParams, afterMoveParams);
-
-        if (PlayerController.Exist)
-        {
-            PlayerController.Instance.Rewind.RegisterCommand(commandMove);
-        }
+        onPlayerApplyMove?.Invoke(beforeMoveParams, afterMoveParams, AnchorRotation);
     }
 
     public void SetMovementsEnable(bool enable)

@@ -192,6 +192,7 @@ MonoBehaviour:
   _attack: {fileID: 8624767364342676720}
   _rewind: {fileID: 6800047551817240093}
   _health: {fileID: 1867741483258744941}
+  _rb: {fileID: 9115170152858762924}
 --- !u!1 &1558698249687060746
 GameObject:
   m_ObjectHideFlags: 0
