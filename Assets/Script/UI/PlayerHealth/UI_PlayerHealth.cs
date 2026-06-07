@@ -20,9 +20,12 @@ public class UI_PlayerHealth : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerController.Instance.Health.onMaxHealthChanged -= ReceiveOnSetMaxHealth;
+        if (PlayerController.Exist)
+        {
+            PlayerController.Instance.Health.onMaxHealthChanged -= ReceiveOnSetMaxHealth;
 
-        PlayerController.Instance.Health.onHealthChanged -= ReceiveOnHealthChanged;
+            PlayerController.Instance.Health.onHealthChanged -= ReceiveOnHealthChanged;
+        }
     }
 
 
