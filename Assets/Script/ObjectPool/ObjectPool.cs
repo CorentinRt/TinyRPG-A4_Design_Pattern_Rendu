@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 public class ObjectPool<T> where T : class
 {
-    private Stack<T> _pool = new Stack<T>();
+    #region Fields
+    private Stack<T> _pool = new Stack<T>(100);
 
     private Func<T> _createFunc;
     private Action<T> _actionOnGet;
     private Action<T> _actionOnRelease;
-
+    #endregion
     public ObjectPool(Func<T> createFunc, Action<T> actionOnGet = null, Action<T> actionOnRelease = null)
     {
         _createFunc = createFunc;
